@@ -20,12 +20,12 @@ public class UsageRecordDBHelper extends SQLiteOpenHelper {
 
         final String SQL_CREATE_UR_DURATION_TABLE = "CREATE TABLE " + UsageRecordContract.TestEntry.DURATION_TABLE_NAME + "( "
                 + UsageRecordContract.TestEntry._ID + " TEXT PRIMARY KEY, "
-                + UsageRecordContract.TestEntry.DURATION_COLUMN_NAME[0] + " INTEGER NOT NULL, "
-                + UsageRecordContract.TestEntry.DURATION_COLUMN_NAME[1] + " INTEGER NOT NULL, "
-                + UsageRecordContract.TestEntry.DURATION_COLUMN_NAME[2] + " INTEGER NOT NULL, "
-                + UsageRecordContract.TestEntry.DURATION_COLUMN_NAME[3] + " INTEGER NOT NULL, "
-                + UsageRecordContract.TestEntry.DURATION_COLUMN_NAME[4] + " INTEGER NOT NULL, "
-                + UsageRecordContract.TestEntry.DURATION_COLUMN_NAME[5] + " INTEGER NOT NULL);";
+                + UsageRecordContract.TestEntry.DURATION_COLUMN_NAME[0] + " TEXT NOT NULL, "
+                + UsageRecordContract.TestEntry.DURATION_COLUMN_NAME[1] + " TEXT NOT NULL, "
+                + UsageRecordContract.TestEntry.DURATION_COLUMN_NAME[2] + " TEXT NOT NULL, "
+                + UsageRecordContract.TestEntry.DURATION_COLUMN_NAME[3] + " TEXT NOT NULL, "
+                + UsageRecordContract.TestEntry.DURATION_COLUMN_NAME[4] + " TEXT NOT NULL, "
+                + UsageRecordContract.TestEntry.DURATION_COLUMN_NAME[5] + " TEXT NOT NULL);";
 
         db.execSQL(SQL_CREATE_UR_DURATION_TABLE);
     }
