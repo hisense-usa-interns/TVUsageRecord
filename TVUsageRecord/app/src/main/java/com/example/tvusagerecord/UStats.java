@@ -20,18 +20,19 @@ public class UStats {
     /**
      * get pkg names of usage stats within the time range based on parameters
      * @param context
-     * @param yearNum
-     * @param monthNum
+     * @param weekNum number of weeks past
+     * @param dayNum number days before the week
      */
-    public void getStatsForPeriod(Context context, int yearNum, int monthNum) {
+    public void getStatsForPeriod(Context context, int weekNum, int dayNum) {
         UsageStatsManager usm = (UsageStatsManager) context.getSystemService(Context.USAGE_STATS_SERVICE);
         int interval = UsageStatsManager.INTERVAL_YEARLY;
         //get current time as the endtime
         Calendar calendar = Calendar.getInstance();
         long endTime = calendar.getTimeInMillis();
         //set start time based on input
-        calendar.add(Calendar.YEAR, -1 * yearNum);
-        calendar.add(Calendar.MONTH, -1 * monthNum);
+        calendar.add(Calendar.WEEK_OF_MONTH, -1 * weekNum);
+        calendar.add(Calendar.DAY_OF_WEEK, -1 * dayNum);
+
         long startTime = calendar.getTimeInMillis();
 
         Log.d(TAG, "Range start: " + dateFormat.format(startTime));
@@ -49,16 +50,19 @@ public class UStats {
     }
 
     /**
-     * Retrieve the list of usage stats in the past one year
+     * Retrieve the list of usage stats in the past period of time given by parameters
      * @param context
+     * @param weekNum
+     * @param dayNum
      * @return
      */
-    public static List<UsageStats> getUsageStatsList(Context context){
+    public static List<UsageStats> getUsageStatsList(Context context, int weekNum, int dayNum){
         //UsageStatsManager usm = getUsageStatsManager(context);
         UsageStatsManager usm = (UsageStatsManager) context.getSystemService(Context.USAGE_STATS_SERVICE);
         Calendar calendar = Calendar.getInstance();
         long endTime = calendar.getTimeInMillis();
-        calendar.add(Calendar.YEAR, -1);
+        calendar.add(Calendar.WEEK_OF_MONTH, -1 * weekNum);
+        calendar.add(Calendar.DAY_OF_WEEK, -1 * dayNum);
         long startTime = calendar.getTimeInMillis();
 
         Log.d(TAG, "Range start:" + dateFormat.format(startTime) );
