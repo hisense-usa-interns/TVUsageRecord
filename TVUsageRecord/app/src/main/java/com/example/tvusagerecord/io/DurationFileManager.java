@@ -45,7 +45,7 @@ public class DurationFileManager {
      * @throws FileNotFoundException
      * @throws UnsupportedEncodingException
      */
-    public void OverwriteFile(String fileName, String[][] table) throws FileNotFoundException, UnsupportedEncodingException {
+    public void overwriteFile(String fileName, String[][] table) throws FileNotFoundException, UnsupportedEncodingException {
         PrintWriter writer = new PrintWriter(fileName, "UTF-8");
         for (int i = 0; i < table.length; i++) {
             writer.println(table[i][0] + "," + table[i][1] + "," + table[i][2] + "," + table[i][3] + "," + table[i][4] + "," + table[i][5] + "," + table[i][6]);
