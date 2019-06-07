@@ -1,7 +1,8 @@
 package com.example.tvusagerecord.manager;
 
 import com.example.tvusagerecord.io.DurationFileManager;
-
+import com.example.tvusagerecord.io.AppTimeStampFileManager;
+import com.example.tvusagerecord.object.AppTimeStamp;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 
@@ -12,13 +13,17 @@ public class Manager {
 
     /** file manager of duration */
     DurationFileManager durationManager;
+    /** file manager of app time stamp */
+    AppTimeStampFileManager timestampManager;
 
     /**
      * manager constructor
      */
     public Manager() {
         this.durationManager = new DurationFileManager();
+        this.timestampManager = new AppTimeStampFileManager();
     }
+
 
     /**
      * update the value in Duration file
@@ -44,6 +49,17 @@ public class Manager {
             col = 6;
         table[week][col] = Integer.toString(value);
         durationManager.overwriteFile(fileName, table);
+    }
+
+    /**
+     * use file manager to update app time stamp file
+     * @param fileName
+     * @param app
+     * @throws FileNotFoundException
+     * @throws UnsupportedEncodingException
+     */
+    public void updateAppTimeStampFile(String fileName, AppTimeStamp app) throws FileNotFoundException, UnsupportedEncodingException {
+        timestampManager.updateFile(fileName, app);
     }
 
 }
