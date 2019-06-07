@@ -43,7 +43,8 @@ public class MainService extends Service {
 
         //implementation part
         //...
-
+        //TO DO: 1. Continuously query usage stats
+        //       2. Refer to file, add new item to file if it is not duplicate with the last item from the file
 
 
         //...
