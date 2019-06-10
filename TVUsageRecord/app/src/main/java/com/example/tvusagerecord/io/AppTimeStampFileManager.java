@@ -28,6 +28,25 @@ public class AppTimeStampFileManager {
     }
 
     /**
+     * return the pkg name of the last (newest) item from the file
+     * @param fileName
+     * @return
+     * @throws FileNotFoundException
+     */
+    public String getLastItemName(String fileName) throws FileNotFoundException {
+        Scanner scan = new Scanner(new FileInputStream(fileName), "UTF-8");
+        ArrayList<String> strList = new ArrayList<>();
+        while (scan.hasNextLine()) {
+            String nextLine = scan.nextLine();
+            String[] values = nextLine.split(",");
+            String name = values[1];
+            strList.add(name);
+        }
+        String lastItem = strList.get(strList.size() - 1);
+        return lastItem;
+    }
+
+    /**
      * update the file: add a new AppTimeStamp item to it
      * @param fileName
      * @param app

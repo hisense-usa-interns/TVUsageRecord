@@ -62,4 +62,14 @@ public class Manager {
         timestampManager.updateFile(fileName, app);
     }
 
+    /**
+     * get the last item from the file
+     * @param fileName
+     * @return
+     * @throws FileNotFoundException
+     */
+    public String getNewestPkgName(String fileName) throws FileNotFoundException {
+        return timestampManager.getLastItemName(fileName);
+    }
+
 }
