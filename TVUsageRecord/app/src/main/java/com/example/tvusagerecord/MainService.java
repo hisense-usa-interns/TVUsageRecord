@@ -14,6 +14,7 @@ import com.example.tvusagerecord.object.AppTimeStamp;
 
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -50,7 +51,7 @@ public class MainService extends Service {
      * @param startId
      * @return
      */
-    public int onStartCommand(Intent intent, int flag, int startId, Context context, String fileName) throws FileNotFoundException, UnsupportedEncodingException {
+    public int onStartCommand(Intent intent, int flag, int startId, Context context, String fileName) throws IOException {
 
         //implementation part
         //...

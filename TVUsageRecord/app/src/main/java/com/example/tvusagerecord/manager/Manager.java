@@ -4,6 +4,7 @@ import com.example.tvusagerecord.io.DurationFileManager;
 import com.example.tvusagerecord.io.AppTimeStampFileManager;
 import com.example.tvusagerecord.object.AppTimeStamp;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 /**
@@ -58,7 +59,7 @@ public class Manager {
      * @throws FileNotFoundException
      * @throws UnsupportedEncodingException
      */
-    public void updateAppTimeStampFile(String fileName, AppTimeStamp app) throws FileNotFoundException, UnsupportedEncodingException {
+    public void updateAppTimeStampFile(String fileName, AppTimeStamp app) throws IOException {
         timestampManager.updateFile(fileName, app);
     }
 

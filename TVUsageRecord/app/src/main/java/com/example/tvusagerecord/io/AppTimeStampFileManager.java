@@ -1,16 +1,33 @@
 package com.example.tvusagerecord.io;
 
+import android.os.Environment;
+
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.FileInputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 import com.example.tvusagerecord.object.AppTimeStamp;
+import java.io.File;
 
 /**
  * class of file manager of reading, updating, printing the csv. file of app time stamps
  */
 public class AppTimeStampFileManager {
+
+    /**
+     * Check if the external storage of the device is available for read and write
+     * @return if external storage available
+     */
+    public boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            return true;
+        }
+        return false;
+    }
 
     /**
      * Read content from the file, as a list containing of each line as a string
@@ -19,7 +36,11 @@ public class AppTimeStampFileManager {
      * @throws FileNotFoundException
      */
     public ArrayList<String> readFile(String fileName) throws FileNotFoundException {
-        Scanner scan = new Scanner(new FileInputStream(fileName), "UTF-8");
+
+        File file = new File(Environment.getExternalStorageDirectory(), fileName);
+        FileInputStream stream = new FileInputStream(file);
+        Scanner scan = new Scanner(stream, "UTF-8");
+
         ArrayList<String> strList = new ArrayList<>();
         while (scan.hasNextLine()) {
             strList.add(scan.nextLine());
@@ -34,7 +55,11 @@ public class AppTimeStampFileManager {
      * @throws FileNotFoundException
      */
     public String getLastItemName(String fileName) throws FileNotFoundException {
-        Scanner scan = new Scanner(new FileInputStream(fileName), "UTF-8");
+
+        File file = new File(Environment.getExternalStorageDirectory(), fileName);
+        FileInputStream stream = new FileInputStream(file);
+        Scanner scan = new Scanner(stream, "UTF-8");
+
         ArrayList<String> strList = new ArrayList<>();
         while (scan.hasNextLine()) {
             String nextLine = scan.nextLine();
@@ -53,17 +78,13 @@ public class AppTimeStampFileManager {
      * @throws FileNotFoundException
      * @throws UnsupportedEncodingException
      */
-    public void updateFile(String fileName, AppTimeStamp app) throws FileNotFoundException, UnsupportedEncodingException {
-        //get the list of str from file and update the list
-        ArrayList<String> list = readFile(fileName);
+    public void updateFile(String fileName, AppTimeStamp app) throws IOException {
+        File file = new File(Environment.getExternalStorageDirectory(), fileName);
         String item = app.getTimeStamp() + "," + app.getAppName();
-        list.add(item);
-        //store back to file
-        PrintWriter writer = new PrintWriter(fileName, "UTF-8");
-        for (int i = 0; i < list.size(); i++) {
-            writer.println(list.get(i));
-        }
-        writer.close();
+        FileWriter csvWriter = new FileWriter(file);
+        csvWriter.append("\n");
+        csvWriter.append(item);
+        csvWriter.close();
     }
 
 }

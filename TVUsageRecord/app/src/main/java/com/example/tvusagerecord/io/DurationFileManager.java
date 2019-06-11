@@ -2,11 +2,13 @@ package com.example.tvusagerecord.io;
 
 import com.example.tvusagerecord.object.Duration;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 import java.io.FileInputStream;
+import android.os.Environment;
 
 
 /**
@@ -21,7 +23,10 @@ public class DurationFileManager {
      * @param fileName to print to
      */
     public void printToConstructFileByDuration(Duration duration, int week, String fileName) throws FileNotFoundException, UnsupportedEncodingException {
-        PrintWriter writer = new PrintWriter(fileName, "UTF-8");
+
+        File file = new File(Environment.getExternalStorageDirectory(), fileName);
+
+        PrintWriter writer = new PrintWriter(file, "UTF-8");
         writer.println("DURATION SHEET,Total,Morning Hours,Noon Hours,Afternoon Hours,Evening Hours,Night Hours");
         //if duration is in the first week
         if (week == 1) {
@@ -39,11 +44,24 @@ public class DurationFileManager {
     }
 
     /**
+     * Check if the external storage of the device is available for read and write
+     * @return if external storage available
+     */
+    public boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * create a new file, fill in week number and titles
      * @param fileName to print to
      */
     public void constructFile(String fileName) throws FileNotFoundException, UnsupportedEncodingException {
-        PrintWriter writer = new PrintWriter(fileName, "UTF-8");
+        File file = new File(Environment.getExternalStorageDirectory(), fileName);
+        PrintWriter writer = new PrintWriter(file, "UTF-8");
         writer.println("DURATION SHEET,Total,Morning Hours,Noon Hours,Afternoon Hours,Evening Hours,Night Hours");
         writer.println("Week 1," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0);
         writer.println("Week 2," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0);
@@ -58,7 +76,9 @@ public class DurationFileManager {
      * @throws UnsupportedEncodingException
      */
     public void overwriteFile(String fileName, String[][] table) throws FileNotFoundException, UnsupportedEncodingException {
-        PrintWriter writer = new PrintWriter(fileName, "UTF-8");
+        File file = new File(Environment.getExternalStorageDirectory(), fileName);
+
+        PrintWriter writer = new PrintWriter(file, "UTF-8");
         for (int i = 0; i < table.length; i++) {
             writer.println(table[i][0] + "," + table[i][1] + "," + table[i][2] + "," + table[i][3] + "," + table[i][4] + "," + table[i][5] + "," + table[i][6]);
         }
@@ -72,7 +92,11 @@ public class DurationFileManager {
      * @throws FileNotFoundException
      */
     public String[][] readDurationFile(String fileName) throws FileNotFoundException {
-        Scanner scan = new Scanner(new FileInputStream(fileName), "UTF-8");
+
+        File file = new File(Environment.getExternalStorageDirectory(), fileName);
+        FileInputStream stream = new FileInputStream(file);
+        Scanner scan = new Scanner(stream, "UTF-8");
+
         String[][] table = new String[4][7];
         int row = 0;
         while (scan.hasNextLine()) {
