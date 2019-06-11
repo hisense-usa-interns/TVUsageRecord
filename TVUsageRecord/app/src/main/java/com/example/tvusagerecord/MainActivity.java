@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
-    public Context context;
+    public Context context = MainActivity.this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
