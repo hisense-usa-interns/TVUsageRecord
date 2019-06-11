@@ -28,7 +28,7 @@ public class DurationFileManager {
             writer.println("Week 1," + duration.getTotal() + "," + duration.getMorning() + "," + duration.getNoon() + "," + duration.getAfternoon() + "," + duration.getEvening() + "," + duration.getNight());
         } else {
             writer.println("Week 1," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0);
-}
+        }
         //if duration is in the second week
         if (week == 2) {
             writer.println("Week 2," + duration.getTotal() + "," + duration.getMorning() + "," + duration.getNoon() + "," + duration.getAfternoon() + "," + duration.getEvening() + "," + duration.getNight());
