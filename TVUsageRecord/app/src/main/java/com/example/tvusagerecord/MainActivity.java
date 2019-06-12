@@ -65,32 +65,48 @@ public class MainActivity extends AppCompatActivity {
         int weekNum = Integer.parseInt(week.getText().toString());
         int dayNum = Integer.parseInt(day.getText().toString());
 
+        List<UsageStats> list = UStats.getUsageStatsList(context, weekNum, dayNum);
+        List<UsageStats> sortedList = UStats.sortUsageStatsList(list);
+        UStats.printUsageStats(sortedList);
+
+
+        //testing code
         Toast.makeText(this, "Week: " + weekNum + " and Day: " + dayNum, Toast.LENGTH_SHORT).show();
         Log.d(TAG, "Week: " + weekNum + " and Day: " + dayNum);
 
+        //UStats testing
         Log.d(TAG, "Method 1");
-        List<UsageStats> list = UStats.getUsageStatsList(context, weekNum, dayNum);
+        List<UsageStats> list1 = UStats.getUsageStatsList(context, weekNum, dayNum);
         Log.d(TAG, "Method 2");
-        List<UsageStats> sortedList = UStats.sortUsageStatsList(list);
+        List<UsageStats> sortedList2 = UStats.sortUsageStatsList(list);
         Log.d(TAG, "Method 3");
         UStats.printUsageStats(sortedList);
         Log.d(TAG, "UStats Successful");
 
-        Duration duration;
-        duration = new Duration();
-
+        //Permission testing
         if (checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             Log.d(TAG, "permission granted");
         } else {
             Log.d(TAG, "permission denied");
         }
 
+        //Duration testing
+        Duration duration;
+        duration = new Duration();
         Log.d(TAG, "file creation started - Duration");
         DurationFileManager durationFileManager = new DurationFileManager();
         durationFileManager.isExternalStorageWritable();
         durationFileManager.constructFile("duration.csv");
         Log.d(TAG, "file created successfully - Duration");
+        String[][] temp = durationFileManager.readDurationFile("duration.csv");
 
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 7; j++) {
+                Log.d(TAG, "duration [" + i + "," + j + "] : " + temp[i][j]);
+            }
+        }
+
+        //AppTimeStamp testing
         AppTimeStamp appTimeStamp1 = new AppTimeStamp("1", "YouTube");
         AppTimeStamp appTimeStamp2 = new AppTimeStamp("2", "Facebook");
         AppTimeStampFileManager appTimeStampFileManager = new AppTimeStampFileManager();
