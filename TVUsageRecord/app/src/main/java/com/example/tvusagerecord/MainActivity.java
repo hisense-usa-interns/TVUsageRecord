@@ -15,10 +15,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.tvusagerecord.io.AppTimeStampFileManager;
 import com.example.tvusagerecord.io.DurationFileManager;
+import com.example.tvusagerecord.object.AppTimeStamp;
 import com.example.tvusagerecord.object.Duration;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -45,9 +48,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     printSortedUsageStatsList(context);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (UnsupportedEncodingException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
      * print the package names and duration of apps during the past one year
      * @param context
      */
-    public void printSortedUsageStatsList(Context context) throws FileNotFoundException, UnsupportedEncodingException {
+    public void printSortedUsageStatsList(Context context) throws IOException {
         EditText week = (EditText) findViewById(R.id.week);
         EditText day = (EditText) findViewById(R.id.day);
         int weekNum = Integer.parseInt(week.getText().toString());
@@ -84,14 +85,35 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "permission denied");
         }
 
-        Log.d(TAG, "file creation started");
+        Log.d(TAG, "file creation started - Duration");
         DurationFileManager durationFileManager = new DurationFileManager();
         durationFileManager.isExternalStorageWritable();
         durationFileManager.constructFile("duration.csv");
-        Log.d(TAG, "file created successfully");
+        Log.d(TAG, "file created successfully - Duration");
 
+        AppTimeStamp appTimeStamp1 = new AppTimeStamp("1", "YouTube");
+        AppTimeStamp appTimeStamp2 = new AppTimeStamp("2", "Facebook");
+        AppTimeStampFileManager appTimeStampFileManager = new AppTimeStampFileManager();
+        appTimeStampFileManager.isExternalStorageWritable();
+        appTimeStampFileManager.updateFile("app_timestamp.csv", appTimeStamp1);
+        String lastItem = appTimeStampFileManager.getLastItemName("app_timestamp.csv");
+        Log.d(TAG, "last item : " + lastItem);
+
+        appTimeStampFileManager.updateFile("app_timestamp.csv", appTimeStamp2);
+        lastItem = appTimeStampFileManager.getLastItemName("app_timestamp.csv");
+        Log.d(TAG, "last item : " + lastItem);
+
+        List<String> appList = appTimeStampFileManager.readFile("app_timestamp.csv");
+        for (int i = 0; i < appList.size(); i++) {
+            Log.d(TAG, "read AppTimeStamp " + i + " : " + appList.get(i));
+        }
     }
 
+
+    /**
+     * check for permission status to write/read from file
+     * @param permission
+     */
     public boolean checkPermission(String permission) {
         int check = ContextCompat.checkSelfPermission(this, permission);
         return (check == PackageManager.PERMISSION_GRANTED);

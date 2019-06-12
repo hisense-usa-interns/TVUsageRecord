@@ -24,14 +24,12 @@ public class Duration {
      * constructor of Duration with no parameter, set everything to 0
      */
     public Duration () {
-        Log.d(Duration.class.getSimpleName(), "begin initialization");
         setTotal(0);
         setMorning(0);
         setNoon(0);
         setAfternoon(0);
         setEvening(0);
         setNight(0);
-        Log.d(Duration.class.getSimpleName(), "complete initialization");
     }
 
     /**
