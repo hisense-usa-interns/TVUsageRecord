@@ -50,7 +50,7 @@ public class MainService extends Service {
      * @param startId
      * @return
      */
-    public int onStartCommand(Intent intent, int flag, int startId, Context context, String fileName) throws IOException {
+    public int onStartCommand(Intent intent, int flag, int startId, Context context, String fileName, String durationFileName, int week) throws IOException {
 
         //implementation part
         //...
@@ -72,7 +72,7 @@ public class MainService extends Service {
             //add to file
             manager.updateAppTimeStampFile(fileName, new AppTimeStamp(timeStr, pkgName));
         }
-        
+
         // The following code is for storing durations into file
 
         String currentStr = dateFormat.format(current);
