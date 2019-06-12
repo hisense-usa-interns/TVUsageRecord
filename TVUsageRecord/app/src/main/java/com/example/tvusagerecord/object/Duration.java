@@ -1,7 +1,5 @@
 package com.example.tvusagerecord.object;
 
-import android.util.Log;
-
 /**
  * object class of Duration
  */
@@ -20,6 +18,7 @@ public class Duration {
     /** hours watching TV at late night */
     int night;
 
+
     /**
      * constructor of Duration with no parameter, set everything to 0
      */
@@ -31,6 +30,7 @@ public class Duration {
         setEvening(0);
         setNight(0);
     }
+
 
     /**
      * constructor of Duration with parameters
@@ -49,8 +49,10 @@ public class Duration {
         setNight(night);
     }
 
-    //Multiple methods of setters
 
+    /**
+     * Multiple setters
+     */
     public void setTotal(int hours) {
         this.total = hours;
     }
@@ -75,8 +77,10 @@ public class Duration {
         this.night = hours;
     }
 
-    //Multiple getters
 
+    /**
+     * Multiple getters
+     */
     public int getTotal() {
         return total;
     }
@@ -100,5 +104,4 @@ public class Duration {
     public int getNight() {
         return night;
     }
-
 }

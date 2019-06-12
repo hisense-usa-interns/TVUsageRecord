@@ -49,6 +49,7 @@ public class UStats {
         }
     }
 
+
     /**
      * Retrieve the list of usage stats in the past period of time given by parameters
      * @param context
@@ -57,7 +58,6 @@ public class UStats {
      * @return
      */
     public static List<UsageStats> getUsageStatsList(Context context, int weekNum, int dayNum){
-        //UsageStatsManager usm = getUsageStatsManager(context);
         UsageStatsManager usm = (UsageStatsManager) context.getSystemService(Context.USAGE_STATS_SERVICE);
         Calendar calendar = Calendar.getInstance();
         long endTime = calendar.getTimeInMillis();
@@ -72,6 +72,7 @@ public class UStats {
         return usageStatsList;
     }
 
+
     /**
      * print the given list of usage stats with its total duration in the range
      * @param usageStatsList
@@ -83,6 +84,7 @@ public class UStats {
         }
     }
 
+
     /**
      * Sort usage stats list given by parameter in terms of total time in foreground
      * @param usageStatsList
@@ -93,7 +95,6 @@ public class UStats {
         newList.sort(new Comparator<UsageStats>() {
             @Override
             public int compare(UsageStats u1, UsageStats u2) {
-
                 if(u1.getTotalTimeInForeground() > u2.getTotalTimeInForeground()){
                     return 1;
                 } else if (u1.getTotalTimeInForeground() < u2.getTotalTimeInForeground()) {
@@ -105,7 +106,6 @@ public class UStats {
             }
         });
         return newList;
-        
     }
 
 
@@ -121,23 +121,4 @@ public class UStats {
         }
         return nameList;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

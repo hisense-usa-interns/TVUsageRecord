@@ -12,10 +12,7 @@ import android.app.usage.UsageStatsManager;
 import android.app.usage.UsageStats;
 import com.example.tvusagerecord.object.AppTimeStamp;
 
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -37,12 +34,14 @@ public class MainService extends Service {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
+
     @Override
     public void onCreate() {
         super.onCreate();
         Log.i(TAG, "OnCreate => ");
         manager = new Manager();
     }
+
 
     /**
      * Check for running apps and alarm 10 seconds to make sure the service keep running
@@ -74,7 +73,6 @@ public class MainService extends Service {
             manager.updateAppTimeStampFile(fileName, new AppTimeStamp(timeStr, pkgName));
         }
 
-        //...
 
         //use alarm to ensure the service is running every 10 seconds
         AlarmManager alarms = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
@@ -86,5 +84,4 @@ public class MainService extends Service {
         //return START_STICKY to recreate the service when available
         return START_STICKY;
     }
-
 }

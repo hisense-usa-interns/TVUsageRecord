@@ -22,27 +22,18 @@ import com.example.tvusagerecord.io.DurationFileManager;
 import com.example.tvusagerecord.object.AppTimeStamp;
 import com.example.tvusagerecord.object.Duration;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
-
     public Context context = MainActivity.this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //Check if permission enabled
-//        if (UStats.getUsageStatsList(this).isEmpty()){
-//            Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
-//            startActivity(intent);
-//        }
 
         Button ok = (Button) findViewById(R.id.ok);
         ok.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
     /**
      * print the package names and duration of apps during the past one year
@@ -85,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
         UStats.printUsageStats(sortedList);
         Log.d(TAG, "UStats Successful");
 
-
         //Permission testing
         if (checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             Log.d(TAG, "permission granted - File");
@@ -109,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Log.d(TAG, "permission denied - Usage Stats");
         }
-
 
         //Duration testing
         Duration duration;
@@ -145,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "read AppTimeStamp " + i + " : " + appList.get(i));
         }
     }
+
 
     /**
      * check for permission status

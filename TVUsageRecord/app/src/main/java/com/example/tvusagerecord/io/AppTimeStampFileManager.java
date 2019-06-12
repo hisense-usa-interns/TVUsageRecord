@@ -6,10 +6,10 @@ import android.util.Log;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.FileInputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
+
 import com.example.tvusagerecord.object.AppTimeStamp;
 import java.io.File;
 
@@ -18,6 +18,8 @@ import java.io.File;
  */
 public class AppTimeStampFileManager {
 
+    public static final String TAG = AppTimeStampFileManager.class.getSimpleName();
+
     /**
      * Check if the external storage of the device is available for read and write
      * @return if external storage available
@@ -25,12 +27,13 @@ public class AppTimeStampFileManager {
     public boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) {
-            Log.d(AppTimeStampFileManager.class.getSimpleName(), "yes, file is writable");
+            Log.d(TAG, "yes, file is writable");
             return true;
         }
-        Log.d(AppTimeStampFileManager.class.getSimpleName(), "no, file is not writable");
+        Log.d(TAG, "no, file is not writable");
         return false;
     }
+
 
     /**
      * Read content from the file, as a list containing of each line as a string
@@ -39,7 +42,6 @@ public class AppTimeStampFileManager {
      * @throws FileNotFoundException
      */
     public ArrayList<String> readFile(String fileName) throws FileNotFoundException {
-
         File file = new File(Environment.getExternalStorageDirectory(), fileName);
         FileInputStream stream = new FileInputStream(file);
         Scanner scan = new Scanner(stream, "UTF-8");
@@ -51,6 +53,7 @@ public class AppTimeStampFileManager {
         return strList;
     }
 
+
     /**
      * return the pkg name of the last (newest) item from the file
      * @param fileName
@@ -58,7 +61,7 @@ public class AppTimeStampFileManager {
      * @throws FileNotFoundException
      */
     public String getLastItemName(String fileName) throws FileNotFoundException {
-        Log.d(AppTimeStampFileManager.class.getSimpleName(), "last item started");
+        Log.d(TAG, "last item started");
         File file = new File(Environment.getExternalStorageDirectory(), fileName);
         FileInputStream stream = new FileInputStream(file);
         Scanner scan = new Scanner(stream, "UTF-8");
@@ -71,9 +74,10 @@ public class AppTimeStampFileManager {
             strList.add(name);
         }
         String lastItem = strList.get(strList.size() - 1);
-        Log.d(AppTimeStampFileManager.class.getSimpleName(), "last item ended");
+        Log.d(TAG, "last item ended");
         return lastItem;
     }
+
 
     /**
      * update the file: add a new AppTimeStamp item to it
@@ -84,7 +88,7 @@ public class AppTimeStampFileManager {
      */
     public void updateFile(String fileName, AppTimeStamp app) throws IOException {
         boolean append = true;
-        Log.d(AppTimeStampFileManager.class.getSimpleName(), "update started");
+        Log.d(TAG, "update started");
         File file = new File(Environment.getExternalStorageDirectory(), fileName);
         FileWriter csvWriter = new FileWriter(file, append);
         FileInputStream stream = new FileInputStream(file);
@@ -96,7 +100,6 @@ public class AppTimeStampFileManager {
         }
         csvWriter.append(item);
         csvWriter.close();
-        Log.d(AppTimeStampFileManager.class.getSimpleName(), "update ended");
+        Log.d(TAG, "update ended");
     }
-
 }

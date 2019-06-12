@@ -9,17 +9,15 @@ import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 import java.io.FileInputStream;
 
-import android.content.pm.PackageManager;
 import android.os.Environment;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.widget.Toast;
-
 
 /**
  * class implementing print methods of all statistics
  */
 public class DurationFileManager {
+
+    public static final String TAG = DurationFileManager.class.getSimpleName();
 
     /**
      * print the format of Duration to create a file, Used for creating a file
@@ -28,9 +26,7 @@ public class DurationFileManager {
      * @param fileName to print to
      */
     public void printToConstructFileByDuration(Duration duration, int week, String fileName) throws FileNotFoundException, UnsupportedEncodingException {
-
         File file = new File(Environment.getExternalStorageDirectory(), fileName);
-
         PrintWriter writer = new PrintWriter(file, "UTF-8");
         writer.println("DURATION SHEET,Total,Morning Hours,Noon Hours,Afternoon Hours,Evening Hours,Night Hours");
         //if duration is in the first week
@@ -48,6 +44,7 @@ public class DurationFileManager {
         writer.close();
     }
 
+
     /**
      * Check if the external storage of the device is available for read and write
      * @return if external storage available
@@ -55,12 +52,13 @@ public class DurationFileManager {
     public boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) {
-            Log.d(DurationFileManager.class.getSimpleName(), "yes, file is writable");
+            Log.d(TAG, "yes, file is writable");
             return true;
         }
-        Log.d(DurationFileManager.class.getSimpleName(), "no, file is not writable");
+        Log.d(TAG, "no, file is not writable");
         return false;
     }
+
 
     /**
      * create a new file, fill in week number and titles
@@ -74,8 +72,9 @@ public class DurationFileManager {
         writer.println("Week 2," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0);
         writer.close();
 
-        Log.d(DurationFileManager.class.getSimpleName(), "File created successfully in DurationFileManager");
+        Log.d(TAG, "File created successfully in DurationFileManager");
     }
+
 
     /**
      * Overwrite the file with the whole table containing titles and all Duration statistics
@@ -86,13 +85,13 @@ public class DurationFileManager {
      */
     public void overwriteFile(String fileName, String[][] table) throws FileNotFoundException, UnsupportedEncodingException {
         File file = new File(Environment.getExternalStorageDirectory(), fileName);
-
         PrintWriter writer = new PrintWriter(file, "UTF-8");
         for (int i = 0; i < table.length; i++) {
             writer.println(table[i][0] + "," + table[i][1] + "," + table[i][2] + "," + table[i][3] + "," + table[i][4] + "," + table[i][5] + "," + table[i][6]);
         }
         writer.close();
     }
+
 
     /**
      * read all content from the file to return a 2D string array
@@ -101,7 +100,6 @@ public class DurationFileManager {
      * @throws FileNotFoundException
      */
     public String[][] readDurationFile(String fileName) throws FileNotFoundException {
-
         File file = new File(Environment.getExternalStorageDirectory(), fileName);
         FileInputStream stream = new FileInputStream(file);
         Scanner scan = new Scanner(stream, "UTF-8");
@@ -118,5 +116,4 @@ public class DurationFileManager {
         }
         return table;
     }
-
 }

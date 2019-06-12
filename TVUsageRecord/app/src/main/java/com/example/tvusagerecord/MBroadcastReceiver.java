@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.example.tvusagerecord.manager.Manager;
-
 /**
  * receive the TV boot up broadcast to start the usage recording app and make track of
  * apps and activities happening
@@ -16,7 +14,7 @@ public class MBroadcastReceiver extends BroadcastReceiver {
     /** unique tag for the class */
     private static final String TAG = "MBroadcastReceiver";
     /** manager regulating file of duration, app time stamp, etc. */
-    //Manager manager = new Manager();
+
 
     /**
      * when receive boot up intent, start the main service
@@ -32,7 +30,4 @@ public class MBroadcastReceiver extends BroadcastReceiver {
             context.startService(serviceIntent);
         }
     }
-
-
-
 }
