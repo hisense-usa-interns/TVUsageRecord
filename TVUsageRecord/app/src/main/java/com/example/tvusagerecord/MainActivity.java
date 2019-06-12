@@ -125,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     /**
      * check for permission status to write/read from file
      * @param permission
