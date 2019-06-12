@@ -72,6 +72,35 @@ public class MainService extends Service {
             //add to file
             manager.updateAppTimeStampFile(fileName, new AppTimeStamp(timeStr, pkgName));
         }
+        
+        // The following code is for storing durations into file
+
+        String currentStr = dateFormat.format(current);
+        //get the hour from current time
+        String hourStr = currentStr.split(" ")[1].split(":")[0];
+        if (hourStr.equals("06") || hourStr.equals("07") || hourStr.equals("08") || hourStr.equals("09") || hourStr.equals("10")) {
+            //morning
+            //add ten seconds to file
+            //in final UI, convert those seconds from file to hours for view by users
+            manager.updateDurationFile(durationFileName, week, "morning", 10);
+        } else if (hourStr.equals("11") || hourStr.equals("12") || hourStr.equals("13")) {
+            //noon
+            //add ten seconds
+            manager.updateDurationFile(durationFileName, week, "noon", 10);
+
+        } else if (hourStr.equals("14") || hourStr.equals("15") || hourStr.equals("16") || hourStr.equals("17")) {
+            //afternoon
+            manager.updateDurationFile(durationFileName, week, "afternoon", 10);
+        } else if (hourStr.equals("18") || hourStr.equals("19") || hourStr.equals("20") || hourStr.equals("21") || hourStr.equals("22")) {
+            //evening
+            manager.updateDurationFile(durationFileName, week, "evening", 10);
+        } else {
+            //late night
+            //add ten seconds to file
+            manager.updateDurationFile(durationFileName, week, "night", 10);
+        }
+        //no matter which period it adds to, the total should always be incremented
+        manager.updateDurationFile(durationFileName, week, "total", 10);
 
 
         //use alarm to ensure the service is running every 10 seconds
