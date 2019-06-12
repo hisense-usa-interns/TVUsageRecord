@@ -1,5 +1,8 @@
 package com.example.tvusagerecord;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.app.usage.*;
@@ -75,16 +78,23 @@ public class MainActivity extends AppCompatActivity {
         Duration duration;
         duration = new Duration();
 
+        if (checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            Log.d(TAG, "permission granted");
+        } else {
+            Log.d(TAG, "permission denied");
+        }
+
+        Log.d(TAG, "file creation started");
         DurationFileManager durationFileManager = new DurationFileManager();
-        durationFileManager.constructFile("app/src/files/duration.csv");
+        durationFileManager.isExternalStorageWritable();
+        durationFileManager.constructFile("duration.csv");
         Log.d(TAG, "file created successfully");
 
     }
 
-
-
-
-
-
+    public boolean checkPermission(String permission) {
+        int check = ContextCompat.checkSelfPermission(this, permission);
+        return (check == PackageManager.PERMISSION_GRANTED);
+    }
 
 }

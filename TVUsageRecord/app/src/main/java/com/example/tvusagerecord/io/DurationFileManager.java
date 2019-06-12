@@ -8,7 +8,12 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 import java.io.FileInputStream;
+
+import android.content.pm.PackageManager;
 import android.os.Environment;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
+import android.widget.Toast;
 
 
 /**
@@ -50,8 +55,10 @@ public class DurationFileManager {
     public boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) {
+            Log.d(DurationFileManager.class.getSimpleName(), "yes, file is writable");
             return true;
         }
+        Log.d(DurationFileManager.class.getSimpleName(), "no, file is not writable");
         return false;
     }
 
@@ -66,6 +73,8 @@ public class DurationFileManager {
         writer.println("Week 1," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0);
         writer.println("Week 2," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0);
         writer.close();
+
+        Log.d(DurationFileManager.class.getSimpleName(), "File created successfully in DurationFileManager");
     }
 
     /**
@@ -109,8 +118,5 @@ public class DurationFileManager {
         }
         return table;
     }
-
-
-
 
 }
