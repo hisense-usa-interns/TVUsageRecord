@@ -86,8 +86,8 @@ public class AppTimeStampFileManager {
         boolean append = true;
         Log.d(AppTimeStampFileManager.class.getSimpleName(), "update started");
         File file = new File(Environment.getExternalStorageDirectory(), fileName);
-        FileInputStream stream = new FileInputStream(file);
         FileWriter csvWriter = new FileWriter(file, append);
+        FileInputStream stream = new FileInputStream(file);
         Scanner scan = new Scanner(stream, "UTF-8");
 
         String item = app.getTimeStamp() + "," + app.getAppName();
