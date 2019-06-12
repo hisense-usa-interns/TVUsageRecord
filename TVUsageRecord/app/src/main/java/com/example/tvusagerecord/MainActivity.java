@@ -1,7 +1,9 @@
 package com.example.tvusagerecord;
 
 import android.Manifest;
+import android.app.AppOpsManager;
 import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -83,12 +85,31 @@ public class MainActivity extends AppCompatActivity {
         UStats.printUsageStats(sortedList);
         Log.d(TAG, "UStats Successful");
 
+
         //Permission testing
         if (checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            Log.d(TAG, "permission granted");
+            Log.d(TAG, "permission granted - File");
         } else {
-            Log.d(TAG, "permission denied");
+            Log.d(TAG, "permission denied - File");
         }
+
+        //start - Usage permission
+        boolean granted = false;
+        AppOpsManager appOps = (AppOpsManager) context.getSystemService(Context.APP_OPS_SERVICE);
+        int mode = appOps.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, android.os.Process.myUid(), context.getPackageName());
+        if (mode == AppOpsManager.MODE_DEFAULT) {
+            granted = (context.checkCallingOrSelfPermission(android.Manifest.permission.PACKAGE_USAGE_STATS) == PackageManager.PERMISSION_GRANTED);
+        } else {
+            granted = (mode == AppOpsManager.MODE_ALLOWED);
+        }
+        //end - Usage permission
+
+        if (granted) {
+            Log.d(TAG, "permission granted - Usage Stats");
+        } else {
+            Log.d(TAG, "permission denied - Usage Stats");
+        }
+
 
         //Duration testing
         Duration duration;
@@ -126,12 +147,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * check for permission status to write/read from file
+     * check for permission status
      * @param permission
      */
     public boolean checkPermission(String permission) {
         int check = ContextCompat.checkSelfPermission(this, permission);
         return (check == PackageManager.PERMISSION_GRANTED);
     }
-
 }
