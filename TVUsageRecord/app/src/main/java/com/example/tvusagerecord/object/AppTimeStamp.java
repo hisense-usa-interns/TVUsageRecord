@@ -10,12 +10,14 @@ public class AppTimeStamp {
     /** name of the app (maybe package name) */
     String appName;
 
+
     /**
      * empty constructor of an app time stamp
      */
     public AppTimeStamp() {
         //no content
     }
+
 
     /**
      * constructor of app time stamp with parameters
@@ -27,8 +29,9 @@ public class AppTimeStamp {
         setAppName(appName);
     }
 
+
     /**
-     * Two setter methods below
+     * Multiple setters
      */
     public void setTimeStamp(String timeStamp) {
         this.timeStamp = timeStamp;
@@ -38,8 +41,9 @@ public class AppTimeStamp {
         this.appName = appName;
     }
 
+
     /**
-     * Two getter methods below
+     * Multiple getters
      */
     public String getTimeStamp() {
         return timeStamp;
@@ -48,7 +52,4 @@ public class AppTimeStamp {
     public String getAppName() {
         return appName;
     }
-
-
-
 }

@@ -52,6 +52,7 @@ public class Manager {
         durationManager.overwriteFile(fileName, table);
     }
 
+
     /**
      * use file manager to update app time stamp file
      * @param fileName
@@ -63,6 +64,7 @@ public class Manager {
         timestampManager.updateFile(fileName, app);
     }
 
+
     /**
      * get the last item from the file
      * @param fileName
@@ -72,5 +74,4 @@ public class Manager {
     public String getNewestPkgName(String fileName) throws FileNotFoundException {
         return timestampManager.getLastItemName(fileName);
     }
-
 }
