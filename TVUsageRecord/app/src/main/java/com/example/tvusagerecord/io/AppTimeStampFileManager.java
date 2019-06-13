@@ -27,10 +27,10 @@ public class AppTimeStampFileManager {
     public boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) {
-            Log.d(TAG, "yes, file is writable");
+            Log.d(TAG, "Yes, file is writable - app_timestamp.csv");
             return true;
         }
-        Log.d(TAG, "no, file is not writable");
+        Log.d(TAG, "No, file is not writable - app_timestamp.csv");
         return false;
     }
 
