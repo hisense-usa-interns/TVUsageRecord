@@ -88,6 +88,9 @@ public class MainService extends Service {
             }
         }
 
+
+        /**
+
         // The following code is for storing durations into file
         int week = intent.getIntExtra("WeekNum", 1);
         String currentStr = dateFormat.format(current);
@@ -152,6 +155,8 @@ public class MainService extends Service {
             Log.e(TAG, "duration file not found");
         }
 
+
+         */
 
         //use alarm to ensure the service is running every 10 seconds
         AlarmManager alarms = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
