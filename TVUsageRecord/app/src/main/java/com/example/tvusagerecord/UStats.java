@@ -11,6 +11,7 @@ import android.util.Log;
 import java.util.Comparator;
 import java.lang.*;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class UStats {
 
@@ -93,7 +94,8 @@ public class UStats {
         List<String> strList = new ArrayList<>();
         for (UsageStats u: usageStatsList) {
             if (u.getTotalTimeInForeground() > 0) {
-                strList.add("Package name: " + u.getPackageName() + "\t" + "ForegroundTime: " + u.getTotalTimeInForeground());
+                long minutes = TimeUnit.MILLISECONDS.toMinutes(u.getTotalTimeInForeground());
+                strList.add("Package name: " + u.getPackageName() + "\t" + "ForegroundTime: " + minutes);
             }
         }
         return strList;
