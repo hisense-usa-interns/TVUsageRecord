@@ -109,9 +109,9 @@ public class UStats {
             @Override
             public int compare(UsageStats u1, UsageStats u2) {
                 if(u1.getTotalTimeInForeground() > u2.getTotalTimeInForeground()){
-                    return 1;
-                } else if (u1.getTotalTimeInForeground() < u2.getTotalTimeInForeground()) {
                     return -1;
+                } else if (u1.getTotalTimeInForeground() < u2.getTotalTimeInForeground()) {
+                    return 1;
                 } else {
                     return 0;
                 }
