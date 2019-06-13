@@ -92,7 +92,9 @@ public class UStats {
     public static List<String> getUsageStatsListStr(List<UsageStats> usageStatsList) {
         List<String> strList = new ArrayList<>();
         for (UsageStats u: usageStatsList) {
-            strList.add("Package name: " + u.getPackageName() + "\t" + "ForegroundTime: " + u.getTotalTimeInForeground());
+            if (u.getTotalTimeInForeground() > 0) {
+                strList.add("Package name: " + u.getPackageName() + "\t" + "ForegroundTime: " + u.getTotalTimeInForeground());
+            }
         }
         return strList;
     }
