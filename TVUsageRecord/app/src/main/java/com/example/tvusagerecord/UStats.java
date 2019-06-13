@@ -119,7 +119,6 @@ public class UStats {
                 } else {
                     return 0;
                 }
-
             }
         });
         return newList;

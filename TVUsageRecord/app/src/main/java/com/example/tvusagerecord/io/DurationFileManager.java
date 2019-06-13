@@ -71,8 +71,6 @@ public class DurationFileManager {
         writer.println("Week 1," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0);
         writer.println("Week 2," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0);
         writer.close();
-
-        Log.d(TAG, "File created successfully in DurationFileManager");
     }
 
 

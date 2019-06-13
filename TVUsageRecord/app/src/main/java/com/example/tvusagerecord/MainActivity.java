@@ -107,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
         //Duration testing
         Duration duration;
         duration = new Duration();
-        Log.d(TAG, "File creation started - duration.csv");
         DurationFileManager durationFileManager = new DurationFileManager();
         durationFileManager.isExternalStorageWritable();
         durationFileManager.constructFile("duration.csv");
@@ -127,9 +126,9 @@ public class MainActivity extends AppCompatActivity {
         appTimeStampFileManager.isExternalStorageWritable();
         appTimeStampFileManager.updateFile("app_timestamp.csv", appTimeStamp1);
         appTimeStampFileManager.updateFile("app_timestamp.csv", appTimeStamp2);
+        Log.d(TAG, "File created successfully - app_timestamp.csv");
         String lastItem = appTimeStampFileManager.getLastItemName("app_timestamp.csv");
         Log.d(TAG, "Last item in app_timestamp.csv: " + lastItem);
-
 
         List<String> appList = appTimeStampFileManager.readFile("app_timestamp.csv");
         for (int i = 0; i < appList.size(); i++) {
