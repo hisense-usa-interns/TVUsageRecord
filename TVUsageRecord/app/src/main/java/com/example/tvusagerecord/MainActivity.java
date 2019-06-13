@@ -58,8 +58,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
     /**
      * print the package names and duration of apps during the past one year
      * @param context
