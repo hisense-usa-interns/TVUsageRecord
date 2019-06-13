@@ -70,29 +70,21 @@ public class MainActivity extends AppCompatActivity {
         int weekNum = Integer.parseInt(week.getText().toString());
         int dayNum = Integer.parseInt(day.getText().toString());
 
-        List<UsageStats> list = UStats.getUsageStatsList(context, weekNum, dayNum);
-        List<UsageStats> sortedList = UStats.sortUsageStatsList(list);
-        UStats.printUsageStats(sortedList);
-
-
         //testing code
         Toast.makeText(this, "Week: " + weekNum + " and Day: " + dayNum, Toast.LENGTH_SHORT).show();
         Log.d(TAG, "Week: " + weekNum + " and Day: " + dayNum);
 
         //UStats testing
-        Log.d(TAG, "Method 1");
-        List<UsageStats> list1 = UStats.getUsageStatsList(context, weekNum, dayNum);
-        Log.d(TAG, "Method 2");
-        List<UsageStats> sortedList2 = UStats.sortUsageStatsList(list);
-        Log.d(TAG, "Method 3");
+        List<UsageStats> list = UStats.getUsageStatsList(context, weekNum, dayNum);
+        List<UsageStats> sortedList = UStats.sortUsageStatsList(list);
         UStats.printUsageStats(sortedList);
         Log.d(TAG, "UStats Successful");
 
         //Permission testing
         if (checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            Log.d(TAG, "permission granted - File");
+            Log.d(TAG, "Permission Granted - File Storage");
         } else {
-            Log.d(TAG, "permission denied - File");
+            Log.d(TAG, "Permission Denied - File Storage");
         }
 
         //start - Usage permission
@@ -107,24 +99,24 @@ public class MainActivity extends AppCompatActivity {
         //end - Usage permission
 
         if (granted) {
-            Log.d(TAG, "permission granted - Usage Stats");
+            Log.d(TAG, "Permission Granted - App Usage Stats");
         } else {
-            Log.d(TAG, "permission denied - Usage Stats");
+            Log.d(TAG, "Permission Denied - App Usage Stats");
         }
 
         //Duration testing
         Duration duration;
         duration = new Duration();
-        Log.d(TAG, "file creation started - Duration");
+        Log.d(TAG, "File creation started - duration.csv");
         DurationFileManager durationFileManager = new DurationFileManager();
         durationFileManager.isExternalStorageWritable();
         durationFileManager.constructFile("duration.csv");
-        Log.d(TAG, "file created successfully - Duration");
+        Log.d(TAG, "File created successfully - duration.csv");
         String[][] temp = durationFileManager.readDurationFile("duration.csv");
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 7; j++) {
-                Log.d(TAG, "duration [" + i + "," + j + "] : " + temp[i][j]);
+                Log.d(TAG, "Duration [" + i + "," + j + "] : " + temp[i][j]);
             }
         }
 
@@ -134,16 +126,14 @@ public class MainActivity extends AppCompatActivity {
         AppTimeStampFileManager appTimeStampFileManager = new AppTimeStampFileManager();
         appTimeStampFileManager.isExternalStorageWritable();
         appTimeStampFileManager.updateFile("app_timestamp.csv", appTimeStamp1);
-        String lastItem = appTimeStampFileManager.getLastItemName("app_timestamp.csv");
-        Log.d(TAG, "last item : " + lastItem);
-
         appTimeStampFileManager.updateFile("app_timestamp.csv", appTimeStamp2);
-        lastItem = appTimeStampFileManager.getLastItemName("app_timestamp.csv");
-        Log.d(TAG, "last item : " + lastItem);
+        String lastItem = appTimeStampFileManager.getLastItemName("app_timestamp.csv");
+        Log.d(TAG, "Last item in app_timestamp.csv: " + lastItem);
+
 
         List<String> appList = appTimeStampFileManager.readFile("app_timestamp.csv");
         for (int i = 0; i < appList.size(); i++) {
-            Log.d(TAG, "read AppTimeStamp " + i + " : " + appList.get(i));
+            Log.d(TAG, "Read AppTimeStamp " + "[" + i + "]" + " : " + appList.get(i));
         }
     }
 
