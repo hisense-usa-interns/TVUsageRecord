@@ -93,9 +93,9 @@ public class UStats {
     public static List<String> getUsageStatsListStr(List<UsageStats> usageStatsList) {
         List<String> strList = new ArrayList<>();
         for (UsageStats u: usageStatsList) {
-            if (u.getTotalTimeInForeground() > 0) {
-                long minutes = TimeUnit.MILLISECONDS.toMinutes(u.getTotalTimeInForeground());
-                strList.add("Package name: " + u.getPackageName() + "\t" + "ForegroundTime: " + minutes);
+            long minutes = TimeUnit.MILLISECONDS.toMinutes(u.getTotalTimeInForeground());
+            if (minutes > 0) {
+                strList.add("Package name: " + u.getPackageName() + "\t" + "ForegroundTime: " + minutes + " min");
             }
         }
         return strList;
