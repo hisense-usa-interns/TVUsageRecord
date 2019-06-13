@@ -27,6 +27,9 @@ public class MBroadcastReceiver extends BroadcastReceiver {
         // if detected TV boot up
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
             Intent serviceIntent = new Intent(context, MainService.class);
+
+            serviceIntent.putExtra("WeekNum", 1);
+
             context.startService(serviceIntent);
         }
     }
