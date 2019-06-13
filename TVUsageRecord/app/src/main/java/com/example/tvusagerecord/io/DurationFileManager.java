@@ -52,10 +52,10 @@ public class DurationFileManager {
     public boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) {
-            Log.d(TAG, "yes, file is writable");
+            Log.d(TAG, "Yes, file is writable - duration.csv");
             return true;
         }
-        Log.d(TAG, "no, file is not writable");
+        Log.d(TAG, "No, file is not writable - duration.csv");
         return false;
     }
 

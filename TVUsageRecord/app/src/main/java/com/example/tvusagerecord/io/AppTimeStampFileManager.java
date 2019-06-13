@@ -27,10 +27,10 @@ public class AppTimeStampFileManager {
     public boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) {
-            Log.d(TAG, "yes, file is writable");
+            Log.d(TAG, "Yes, file is writable - app_timestamp.csv");
             return true;
         }
-        Log.d(TAG, "no, file is not writable");
+        Log.d(TAG, "No, file is not writable - app_timestamp.csv");
         return false;
     }
 
@@ -61,7 +61,6 @@ public class AppTimeStampFileManager {
      * @throws FileNotFoundException
      */
     public String getLastItemName(String fileName) throws FileNotFoundException {
-        Log.d(TAG, "last item started");
         File file = new File(Environment.getExternalStorageDirectory(), fileName);
         FileInputStream stream = new FileInputStream(file);
         Scanner scan = new Scanner(stream, "UTF-8");
@@ -74,7 +73,6 @@ public class AppTimeStampFileManager {
             strList.add(name);
         }
         String lastItem = strList.get(strList.size() - 1);
-        Log.d(TAG, "last item ended");
         return lastItem;
     }
 
@@ -88,7 +86,6 @@ public class AppTimeStampFileManager {
      */
     public void updateFile(String fileName, AppTimeStamp app) throws IOException {
         boolean append = true;
-        Log.d(TAG, "update started");
         File file = new File(Environment.getExternalStorageDirectory(), fileName);
         FileWriter csvWriter = new FileWriter(file, append);
         FileInputStream stream = new FileInputStream(file);
@@ -100,6 +97,5 @@ public class AppTimeStampFileManager {
         }
         csvWriter.append(item);
         csvWriter.close();
-        Log.d(TAG, "update ended");
     }
 }
