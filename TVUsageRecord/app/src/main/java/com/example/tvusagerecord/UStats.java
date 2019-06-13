@@ -84,6 +84,19 @@ public class UStats {
         }
     }
 
+    /**
+     * get list of string of given usage stats list
+     * @param usageStatsList
+     * @return
+     */
+    public static List<String> getUsageStatsListStr(List<UsageStats> usageStatsList) {
+        List<String> strList = new ArrayList<>();
+        for (UsageStats u: usageStatsList) {
+            strList.add("Package name: " + u.getPackageName() + "\t" + "ForegroundTime: " + u.getTotalTimeInForeground());
+        }
+        return strList;
+    }
+
 
     /**
      * Sort usage stats list given by parameter in terms of total time in foreground

@@ -46,7 +46,18 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //button for loading page of apps top-down list
+        Button appsRating = (Button) findViewById(R.id.apps_rating_btn);
+        appsRating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, AppsRating.class));
+            }
+        });
     }
+
+
 
 
     /**

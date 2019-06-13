@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TVUsageRecord</string>
+    <string name="title_activity_apps_rating">AppsRating</string>
 </resources>
