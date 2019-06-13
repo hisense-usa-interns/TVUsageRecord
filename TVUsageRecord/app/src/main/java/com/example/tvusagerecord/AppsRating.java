@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.app.usage.UsageStats;
 import java.util.List;
+import android.widget.ArrayAdapter;
 
 public class AppsRating extends AppCompatActivity {
 
@@ -22,7 +23,10 @@ public class AppsRating extends AppCompatActivity {
         List<UsageStats> sortedList = UStats.sortUsageStatsList(usageStatsList);
         List<String> strList = UStats.getUsageStatsListStr(sortedList);
 
+        ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, strList);
+        listview.setAdapter(adapter);
 
+        /**
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -34,6 +38,7 @@ public class AppsRating extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+         */
     }
 
 }
