@@ -61,10 +61,12 @@ public class MainService extends Service {
         //...
         //TO DO: 1. Continuously query usage stats
         //       2. Refer to file, add new item to file if it is not duplicate with the last item from the file
+        Log.d(TAG, "start running on start command of main service");
         Context context = getApplicationContext();
         UsageStatsManager usm = (UsageStatsManager) context.getSystemService(Context.USAGE_STATS_SERVICE);
         long current = System.currentTimeMillis();
         List<UsageStats> applist = usm.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, current - 10 * 1000, current);
+        Log.d(TAG, "queried past history for 10 seconds");
         //for a 10 seconds running, we only need the newest one app, which is the index 0
         UsageStats app = applist.get(0);
         //get the launch time for this app
@@ -76,6 +78,7 @@ public class MainService extends Service {
         //check for the last item from file, add it if not duplicate
         try {
             lastPkgName = manager.getNewestPkgName(fileName);
+            Log.d(TAG, "the last package item from file got");
         } catch (FileNotFoundException e) {
             Log.e(TAG, "app timestamp file not existed");
         }
@@ -83,6 +86,7 @@ public class MainService extends Service {
             //add to file
             try {
                 manager.updateAppTimeStampFile(fileName, new AppTimeStamp(timeStr, pkgName));
+                Log.d(TAG, "package name added to file");
             } catch (IOException e) {
                 Log.e(TAG, "io exception: cannot update the file");
             }

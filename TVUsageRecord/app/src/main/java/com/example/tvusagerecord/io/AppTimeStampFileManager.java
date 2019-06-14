@@ -85,7 +85,7 @@ public class AppTimeStampFileManager {
      * @throws UnsupportedEncodingException
      */
     public void updateFile(String fileName, AppTimeStamp app) throws IOException {
-        boolean append = true;
+        boolean append = false;
         File file = new File(Environment.getExternalStorageDirectory(), fileName);
         FileWriter csvWriter = new FileWriter(file, append);
         FileInputStream stream = new FileInputStream(file);
