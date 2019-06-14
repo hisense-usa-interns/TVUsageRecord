@@ -75,7 +75,7 @@ public class MainService extends Service {
             return START_STICKY;
         }
         //get the launch time for this app
-        long launchTime = app.getFirstTimeStamp();
+        long launchTime = app.getLastTimeStamp();
         String pkgName = app.getPackageName();
         String timeStr = dateFormat.format(launchTime);
 
