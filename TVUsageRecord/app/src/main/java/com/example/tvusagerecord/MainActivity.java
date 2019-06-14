@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //button for setting UStats time range
         Button ok = (Button) findViewById(R.id.ok);
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, AppUsageHistoryActivity.class));
             }
         });
+
+        Log.d(TAG, "hit broadcast receiver");
+        MBroadcastReceiver mBroadcastReceiver = new MBroadcastReceiver();
 
     }
 
