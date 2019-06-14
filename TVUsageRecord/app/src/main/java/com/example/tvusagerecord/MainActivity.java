@@ -66,19 +66,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        //Testing code
-        AppTimeStampFileManager appTimeStampFileManager = new AppTimeStampFileManager();
-//        try {
-//            appTimeStampFileManager.clearFile("app_timestamp.csv");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
         Log.d(TAG, "hit broadcast receiver");
         MBroadcastReceiver mBroadcastReceiver = new MBroadcastReceiver();
         mBroadcastReceiver.onReceive(context, new Intent(MainActivity.this, MBroadcastReceiver.class));
-
     }
 
 
@@ -142,10 +132,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //AppTimeStamp testing
-        AppTimeStamp appTimeStamp1 = new AppTimeStamp("Time Stamp", "Package Name");
+        //AppTimeStamp appTimeStamp1 = new AppTimeStamp("Time Stamp", "Package Name");
         AppTimeStampFileManager appTimeStampFileManager = new AppTimeStampFileManager();
         appTimeStampFileManager.isExternalStorageWritable();
-        appTimeStampFileManager.updateFile("app_timestamp.csv", appTimeStamp1);
+        //appTimeStampFileManager.updateFile("app_timestamp.csv", appTimeStamp1);
         Log.d(TAG, "File created successfully - app_timestamp.csv");
         String lastItem = appTimeStampFileManager.getLastItemName("app_timestamp.csv");
         Log.d(TAG, "Last item in app_timestamp.csv: " + lastItem);
