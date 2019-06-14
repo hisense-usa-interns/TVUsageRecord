@@ -55,6 +55,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, AppsRating.class));
             }
         });
+
+        //button for loading page of apps running history
+        Button appsHistory = (Button) findViewById(R.id.viewHistory);
+        appsHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, AppUsageHistoryActivity.class));
+            }
+        });
+
     }
 
 

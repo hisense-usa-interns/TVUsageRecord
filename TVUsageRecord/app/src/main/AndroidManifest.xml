@@ -17,10 +17,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".AppUsageHistoryActivity"></activity>
         <activity
             android:name=".AppsRating"
             android:label="@string/title_activity_apps_rating"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+
 
         <receiver
             android:name=".MBroadcastReceiver"
