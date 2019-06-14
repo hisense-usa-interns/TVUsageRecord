@@ -6,6 +6,8 @@ import com.example.tvusagerecord.object.AppTimeStamp;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
+import java.util.Collection;
 
 /**
  * Manager of usage recording app
@@ -73,5 +75,15 @@ public class Manager {
      */
     public String getNewestPkgName(String fileName) throws FileNotFoundException {
         return timestampManager.getLastItemName(fileName);
+    }
+
+    /**
+     * get lines from file
+     * @param fileName
+     * @return
+     * @throws FileNotFoundException
+     */
+    public List<String> getAppsRunningHistory(String fileName) throws FileNotFoundException {
+        return timestampManager.readFile(fileName);
     }
 }

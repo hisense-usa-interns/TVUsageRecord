@@ -5,8 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
+import com.example.tvusagerecord.manager.Manager;
+import java.util.ArrayList;
+import java.io.FileNotFoundException;
 import java.util.List;
+import android.util.Log;
 
 public class AppUsageHistoryActivity extends AppCompatActivity {
 
@@ -17,10 +20,20 @@ public class AppUsageHistoryActivity extends AppCompatActivity {
         final ListView listview = (ListView) findViewById(R.id.list);
 
         //get list of strings from file
-        
+        Manager manager = new Manager();
+        List<String> lines = new ArrayList<>();
+        try {
+            lines = manager.getAppsRunningHistory("app_timestamp.csv");
+        } catch (FileNotFoundException e) {
+            Log.e("AppUsageHistoryActivity", "time stamp file not found");
+        }
+        //order the display list in a reverse way
+        for (int i = 0, j = lines.size() - 1; i < j; i++) {
+            lines.add(i, lines.remove(j));
+        }
 
-        //ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, strList);
-        //listview.setAdapter(adapter);
+        ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lines);
+        listview.setAdapter(adapter);
 
     }
 }
