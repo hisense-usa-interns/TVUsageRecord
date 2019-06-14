@@ -73,8 +73,6 @@ public class MainActivity extends AppCompatActivity {
             AppTimeStamp appTimeStamp1 = new AppTimeStamp("1", "YouTube");
             AppTimeStamp appTimeStamp2 = new AppTimeStamp("2", "Facebook");
             appTimeStampFileManager.clearFile("app_timestamp.csv");
-            appTimeStampFileManager.updateFile("app_timestamp.csv", appTimeStamp1);
-            appTimeStampFileManager.updateFile("app_timestamp.csv", appTimeStamp2);
         } catch (IOException e) {
             e.printStackTrace();
         }

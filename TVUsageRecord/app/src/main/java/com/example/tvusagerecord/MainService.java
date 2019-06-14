@@ -86,7 +86,10 @@ public class MainService extends Service {
             Log.d(TAG, "the last package item from file got");
         } catch (FileNotFoundException e) {
             Log.e(TAG, "app timestamp file not existed");
+        } catch (IndexOutOfBoundsException e) {
+            return START_STICKY;
         }
+
         if (!pkgName.equals(lastPkgName)) {
             //add to file
             try {
