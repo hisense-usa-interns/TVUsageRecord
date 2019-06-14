@@ -66,8 +66,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        //Testing code
+        AppTimeStampFileManager appTimeStampFileManager = new AppTimeStampFileManager();
+        try {
+            AppTimeStamp appTimeStamp1 = new AppTimeStamp("1", "YouTube");
+            AppTimeStamp appTimeStamp2 = new AppTimeStamp("2", "Facebook");
+            appTimeStampFileManager.clearFile("app_timestamp.csv");
+            appTimeStampFileManager.updateFile("app_timestamp.csv", appTimeStamp1);
+            appTimeStampFileManager.updateFile("app_timestamp.csv", appTimeStamp2);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Log.d(TAG, "hit broadcast receiver");
         MBroadcastReceiver mBroadcastReceiver = new MBroadcastReceiver();
+        mBroadcastReceiver.onReceive(context, new Intent(MainActivity.this, MBroadcastReceiver.class));
 
     }
 

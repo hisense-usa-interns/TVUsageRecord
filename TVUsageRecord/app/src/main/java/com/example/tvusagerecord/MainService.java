@@ -68,7 +68,12 @@ public class MainService extends Service {
         List<UsageStats> applist = usm.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, current - 10 * 1000, current);
         Log.d(TAG, "queried past history for 10 seconds");
         //for a 10 seconds running, we only need the newest one app, which is the index 0
-        UsageStats app = applist.get(0);
+        UsageStats app;
+        try {
+            app = applist.get(0);
+        } catch (IndexOutOfBoundsException e) {
+            return START_STICKY;
+        }
         //get the launch time for this app
         long launchTime = app.getFirstTimeStamp();
         String pkgName = app.getPackageName();

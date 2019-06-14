@@ -98,4 +98,16 @@ public class AppTimeStampFileManager {
         csvWriter.append(item);
         csvWriter.close();
     }
+
+
+    /**
+     * clear the file app_timestamp.csv
+     * @param fileName
+     * @throws FileNotFoundException
+     * @throws UnsupportedEncodingException
+     */
+    public void clearFile(String fileName) throws IOException {
+        File file = new File(Environment.getExternalStorageDirectory(), fileName);
+        FileWriter csvWriter = new FileWriter(file, false);
+    }
 }
