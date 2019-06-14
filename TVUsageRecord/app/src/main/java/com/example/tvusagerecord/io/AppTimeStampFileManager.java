@@ -65,13 +65,19 @@ public class AppTimeStampFileManager {
         FileInputStream stream = new FileInputStream(file);
         Scanner scan = new Scanner(stream, "UTF-8");
 
+
+
         ArrayList<String> strList = new ArrayList<>();
+        int lineCount = 0;
         while (scan.hasNextLine()) {
+            lineCount++;
             String nextLine = scan.nextLine();
             String[] values = nextLine.split(",");
             String name = values[1];
             strList.add(name);
         }
+        if (lineCount == 0)
+            return "";
         String lastItem = strList.get(strList.size() - 1);
         return lastItem;
     }
@@ -109,5 +115,6 @@ public class AppTimeStampFileManager {
     public void clearFile(String fileName) throws IOException {
         File file = new File(Environment.getExternalStorageDirectory(), fileName);
         FileWriter csvWriter = new FileWriter(file, false);
+
     }
 }

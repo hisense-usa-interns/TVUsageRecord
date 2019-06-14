@@ -2,6 +2,7 @@ package com.example.tvusagerecord;
 
 import android.app.Service;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.IBinder;
 import com.example.tvusagerecord.manager.Manager;
 import android.util.Log;
@@ -22,7 +23,7 @@ import java.util.List;
 public class MainService extends Service {
 
     /** class unique tag */
-    private static final String TAG = "Main Service";
+    private static final String TAG = "MainService";
     /** manager for interacting with files */
     Manager manager;
     /** convert long (time stamp) to string */
@@ -65,11 +66,14 @@ public class MainService extends Service {
         Context context = getApplicationContext();
         UsageStatsManager usm = (UsageStatsManager) context.getSystemService(Context.USAGE_STATS_SERVICE);
         long current = System.currentTimeMillis();
-        List<UsageStats> applist = usm.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, current - 10 * 1000, current);
+        List<UsageStats> applist = usm.queryUsageStats(UsageStatsManager.INTERVAL_BEST, current - 60 * 60 * 1000, current);
         Log.d(TAG, "queried past history for 10 seconds");
         //for a 10 seconds running, we only need the newest one app, which is the index 0
         UsageStats app;
         try {
+            for(UsageStats a : applist){
+                Log.e(TAG, "app is: " + a.getPackageName());
+            }
             app = applist.get(0);
         } catch (IndexOutOfBoundsException e) {
             return START_STICKY;
@@ -89,6 +93,8 @@ public class MainService extends Service {
         } catch (IndexOutOfBoundsException e) {
             return START_STICKY;
         }
+
+        Log.d(TAG, "package name is: " + pkgName);
 
         if (!pkgName.equals(lastPkgName)) {
             //add to file
@@ -180,4 +186,6 @@ public class MainService extends Service {
         //return START_STICKY to recreate the service when available
         return START_STICKY;
     }
+
+
 }
