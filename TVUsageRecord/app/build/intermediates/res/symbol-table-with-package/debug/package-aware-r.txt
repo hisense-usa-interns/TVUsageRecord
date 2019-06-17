@@ -1075,7 +1075,6 @@ id contentPanel
 id coordinator
 id custom
 id customPanel
-id day
 id decor_content_parent
 id default_activity_button
 id design_bottom_sheet
@@ -1086,6 +1085,7 @@ id design_navigation_view
 id dimensions
 id direct
 id disableHome
+id durationButton
 id edit_query
 id end
 id enterAlways
@@ -1137,7 +1137,6 @@ id normal
 id notification_background
 id notification_main_column
 id notification_main_column_container
-id ok
 id outline
 id packed
 id parallax
@@ -1227,7 +1226,8 @@ id useLogo
 id viewHistory
 id view_offset_helper
 id visible
-id week
+id week1
+id week2
 id withText
 id wrap
 id wrap_content
@@ -1281,6 +1281,9 @@ layout abc_tooltip
 layout activity_app_usage_history
 layout activity_apps_rating
 layout activity_main
+layout activity_week1_stats
+layout activity_week2_stats
+layout activity_weekly_usage_stats
 layout content_apps_rating
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog
@@ -1368,6 +1371,8 @@ string search_menu_title
 string status_bar_notification_info_overflow
 string title_activity_apps_rating
 string view_apps_rating
+string view_apps_running_history
+string weekly_usage_stats
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
 style Animation_AppCompat_Dialog

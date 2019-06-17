@@ -35,16 +35,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //button for setting UStats time range
-        Button ok = (Button) findViewById(R.id.ok);
-        ok.setOnClickListener(new View.OnClickListener() {
+        //button for loading page of weekly usage stats
+        Button durationButton = (Button) findViewById(R.id.durationButton);
+        durationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    printSortedUsageStatsList(context);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                startActivity(new Intent(MainActivity.this, WeeklyUsageStats.class));
             }
         });
 
@@ -69,81 +65,6 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "hit broadcast receiver");
         MBroadcastReceiver mBroadcastReceiver = new MBroadcastReceiver();
         mBroadcastReceiver.onReceive(context, new Intent(MainActivity.this, MBroadcastReceiver.class));
-    }
-
-
-    /**
-     * print the package names and duration of apps during the past one year
-     * @param context
-     */
-    public void printSortedUsageStatsList(Context context) throws IOException {
-        EditText week = (EditText) findViewById(R.id.week);
-        EditText day = (EditText) findViewById(R.id.day);
-        int weekNum = Integer.parseInt(week.getText().toString());
-        int dayNum = Integer.parseInt(day.getText().toString());
-
-        //testing code
-        Toast.makeText(this, "Week: " + weekNum + " and Day: " + dayNum, Toast.LENGTH_SHORT).show();
-        Log.d(TAG, "Week: " + weekNum + " and Day: " + dayNum);
-
-        //UStats testing
-        List<UsageStats> list = UStats.getUsageStatsList(context, weekNum, dayNum);
-        List<UsageStats> sortedList = UStats.sortUsageStatsList(list);
-        UStats.printUsageStats(sortedList);
-        Log.d(TAG, "UStats Successful");
-
-        //Permission testing
-        if (checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            Log.d(TAG, "Permission Granted - File Storage");
-        } else {
-            Log.d(TAG, "Permission Denied - File Storage");
-        }
-
-        //start - Usage permission
-        boolean granted = false;
-        AppOpsManager appOps = (AppOpsManager) context.getSystemService(Context.APP_OPS_SERVICE);
-        int mode = appOps.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, android.os.Process.myUid(), context.getPackageName());
-        if (mode == AppOpsManager.MODE_DEFAULT) {
-            granted = (context.checkCallingOrSelfPermission(android.Manifest.permission.PACKAGE_USAGE_STATS) == PackageManager.PERMISSION_GRANTED);
-        } else {
-            granted = (mode == AppOpsManager.MODE_ALLOWED);
-        }
-        //end - Usage permission
-
-        if (granted) {
-            Log.d(TAG, "Permission Granted - App Usage Stats");
-        } else {
-            Log.d(TAG, "Permission Denied - App Usage Stats");
-        }
-
-        //Duration testing
-        Duration duration;
-        duration = new Duration();
-        DurationFileManager durationFileManager = new DurationFileManager();
-        durationFileManager.isExternalStorageWritable();
-        durationFileManager.constructFile("duration.csv");
-        Log.d(TAG, "File created successfully - duration.csv");
-        String[][] temp = durationFileManager.readDurationFile("duration.csv");
-
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 7; j++) {
-                Log.d(TAG, "Duration [" + i + "," + j + "] : " + temp[i][j]);
-            }
-        }
-
-        //AppTimeStamp testing
-        //AppTimeStamp appTimeStamp1 = new AppTimeStamp("Time Stamp", "Package Name");
-        AppTimeStampFileManager appTimeStampFileManager = new AppTimeStampFileManager();
-        appTimeStampFileManager.isExternalStorageWritable();
-        //appTimeStampFileManager.updateFile("app_timestamp.csv", appTimeStamp1);
-        Log.d(TAG, "File created successfully - app_timestamp.csv");
-        String lastItem = appTimeStampFileManager.getLastItemName("app_timestamp.csv");
-        Log.d(TAG, "Last item in app_timestamp.csv: " + lastItem);
-
-        List<String> appList = appTimeStampFileManager.readFile("app_timestamp.csv");
-        for (int i = 0; i < appList.size(); i++) {
-            Log.d(TAG, "Read AppTimeStamp " + "[" + i + "]" + " : " + appList.get(i));
-        }
     }
 
 

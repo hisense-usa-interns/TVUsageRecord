@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.REQUEST_COMPANION_RUN_IN_BACKGROUND"/>
+    <uses-permission android:name="android.permission.REQUEST_COMPANION_RUN_IN_BACKGROUND" />
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
@@ -18,12 +18,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AppUsageHistoryActivity"></activity>
+        <activity android:name=".Week2Stats"></activity>
+        <activity android:name=".Week1Stats" />
+        <activity android:name=".WeeklyUsageStats" />
+        <activity android:name=".AppUsageHistoryActivity" />
         <activity
             android:name=".AppsRating"
             android:label="@string/title_activity_apps_rating"
             android:theme="@style/AppTheme.NoActionBar" />
-
 
         <receiver
             android:name=".MBroadcastReceiver"
