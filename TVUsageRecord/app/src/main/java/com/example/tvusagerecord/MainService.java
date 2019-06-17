@@ -12,8 +12,9 @@ import android.app.PendingIntent;
 import android.app.usage.UsageStatsManager;
 import android.app.usage.UsageStats;
 import com.example.tvusagerecord.object.AppTimeStamp;
-
+import com.example.tvusagerecord.io.StartTimeRecorder;
 import java.io.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.List;
@@ -33,6 +34,10 @@ public class MainService extends Service {
     public static final String fileName = "app_timestamp.csv";
     /** file name of duration (periods) file */
     public static final String durationFileName = "duration.csv";
+    /** start time recorder */
+    StartTimeRecorder recorder;
+    /** constant of a day in milliseconds */
+    private static final double DAY_IN_MILLISECONDS = 86400000;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -46,6 +51,7 @@ public class MainService extends Service {
         super.onCreate();
         Log.i(TAG, "OnCreate => ");
         manager = new Manager();
+        recorder = new StartTimeRecorder();
     }
 
 
@@ -59,14 +65,43 @@ public class MainService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flag, int startId) {
 
-        //implementation part
-        //...
+        //store the first boot time to file
+        if (recorder.isExternalStorageWritable()) {
+            try {
+                recorder.storeFirstTimeToFile();
+            } catch (FileNotFoundException e) {
+                Log.e(TAG, "start time file not found when storing");
+            } catch (IOException e) {
+                Log.e(TAG, "start time file io exception");
+            }
+        }
+        //get the first boot time from file
+        long firstTime = 0;
+        try {
+            firstTime = recorder.getFirstTimeLong();
+        } catch (FileNotFoundException e) {
+            Log.e(TAG, "start time file not found when reading");
+        } catch (ParseException e) {
+            Log.e(TAG, "parse exception when retrieving start time");
+        }
+
+        //tell whether the current week is week1 or week2
+        int week = 1;
+        long current = System.currentTimeMillis();
+        int daysOld = (int)((current - firstTime) / DAY_IN_MILLISECONDS);
+        if (daysOld <= 7) {
+            week = 1;
+        } else {
+            week = 2;
+        }
+
+
         //TO DO: 1. Continuously query usage stats
         //       2. Refer to file, add new item to file if it is not duplicate with the last item from the file
         Log.d(TAG, "start running on start command of main service");
         Context context = getApplicationContext();
         UsageStatsManager usm = (UsageStatsManager) context.getSystemService(Context.USAGE_STATS_SERVICE);
-        long current = System.currentTimeMillis();
+
         List<UsageStats> applist = usm.queryUsageStats(UsageStatsManager.INTERVAL_BEST, current - 60 * 60 * 1000, current);
         Log.d(TAG, "queried past history for 10 seconds");
         //for a 10 seconds running, we only need the newest one app, which is the index 0
@@ -132,12 +167,10 @@ public class MainService extends Service {
         }
 
 
-        /**
-
         // The following code is for storing durations into file
-        int week = intent.getIntExtra("WeekNum", 1);
-        String currentStr = dateFormat.format(current);
+
         //get the hour from current time
+        String currentStr = dateFormat.format(current);
         String hourStr = currentStr.split(" ")[1].split(":")[0];
         if (hourStr.equals("06") || hourStr.equals("07") || hourStr.equals("08") || hourStr.equals("09") || hourStr.equals("10")) {
             //morning
@@ -199,7 +232,6 @@ public class MainService extends Service {
         }
 
 
-         */
 
         //use alarm to ensure the service is running every 10 seconds
         AlarmManager alarms = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
