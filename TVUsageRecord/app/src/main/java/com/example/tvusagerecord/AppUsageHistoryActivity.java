@@ -3,8 +3,12 @@ package com.example.tvusagerecord;
 import android.app.usage.UsageStats;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+
+import com.example.tvusagerecord.io.AppTimeStampFileManager;
 import com.example.tvusagerecord.manager.Manager;
 import java.util.ArrayList;
 import java.io.FileNotFoundException;
@@ -12,6 +16,8 @@ import java.util.List;
 import android.util.Log;
 
 public class AppUsageHistoryActivity extends AppCompatActivity {
+
+    public static final String TAG = AppUsageHistoryActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +40,15 @@ public class AppUsageHistoryActivity extends AppCompatActivity {
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lines);
         listview.setAdapter(adapter);
+
+        //sort the app_timestamp.csv file
+        Button sortFile = (Button) findViewById(R.id.sortFile);
+        sortFile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 }

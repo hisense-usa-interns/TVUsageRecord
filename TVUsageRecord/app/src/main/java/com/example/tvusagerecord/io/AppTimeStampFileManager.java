@@ -65,8 +65,6 @@ public class AppTimeStampFileManager {
         FileInputStream stream = new FileInputStream(file);
         Scanner scan = new Scanner(stream, "UTF-8");
 
-
-
         ArrayList<String> strList = new ArrayList<>();
         int lineCount = 0;
         while (scan.hasNextLine()) {
@@ -115,6 +113,5 @@ public class AppTimeStampFileManager {
     public void clearFile(String fileName) throws IOException {
         File file = new File(Environment.getExternalStorageDirectory(), fileName);
         FileWriter csvWriter = new FileWriter(file, false);
-
     }
 }

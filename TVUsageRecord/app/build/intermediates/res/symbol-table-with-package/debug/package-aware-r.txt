@@ -1093,7 +1093,6 @@ id enterAlwaysCollapsed
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
-id fab
 id fill
 id fill_horizontal
 id fill_vertical
@@ -1182,6 +1181,7 @@ id snackbar_action
 id snackbar_text
 id snap
 id snapMargins
+id sortFile
 id spacer
 id split_action_bar
 id spread
