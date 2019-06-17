@@ -97,9 +97,6 @@ public class MainService extends Service {
 
         Log.d(TAG, "package name is: " + pkgName);
 
-
-
-
         applist.sort(new Comparator<UsageStats>() {
             @Override
             public int compare(UsageStats u1, UsageStats u2) {
@@ -116,11 +113,9 @@ public class MainService extends Service {
         if (!pkgName.equals(lastPkgName)) {
             //add to file
             try {
-
                 for (int i = 0; i < applist.size(); i++) {
             		manager.updateAppTimeStampFile(fileName, new AppTimeStamp(dateFormat.format(applist.get(i).getLastTimeStamp()), applist.get(i).getPackageName()));
             	}
-                
                 Log.d(TAG, "package names added to file");
             } catch (IOException e) {
                 Log.e(TAG, "io exception: cannot update the file");
