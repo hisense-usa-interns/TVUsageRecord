@@ -136,17 +136,17 @@ public class DurationFileManager {
     }
 
     /**
-     * help convert a row containing strings of seconds to double of hours
+     * help convert a row containing strings of seconds to float of hours
      * @param row
      * @return row converted to hours
      */
-    public double[] convertRowSecondsToHours(String[] row) {
-        double[] hours = new double[6];
+    public float[] convertRowSecondsToHours(String[] row) {
+        float[] hours = new float[6];
         for (int i = 0; i < row.length; i++) {
             int seconds = Integer.parseInt(row[i]);
-            double secondDouble = Double.valueOf(seconds);
-            double divider = 3600.0;
-            double hour = secondDouble / divider;
+            float secondFloat = Float.valueOf(seconds);
+            float divider = 3600.0F;
+            float hour = secondFloat / divider;
             hours[i] = hour;
         }
         return hours;
