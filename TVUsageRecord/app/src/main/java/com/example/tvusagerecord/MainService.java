@@ -99,11 +99,23 @@ public class MainService extends Service {
         if (!pkgName.equals(lastPkgName)) {
             //add to file
             try {
-                manager.updateAppTimeStampFile(fileName, new AppTimeStamp(timeStr, pkgName));
-                Log.d(TAG, "package name added to file");
+            	for (int i = 0; i < applist.size(); i++) {
+            		manager.updateAppTimeStampFile(fileName, new AppTimeStamp(dateFormat.format(applist.get(i).getLastTimeStamp()), applist.get(i).getPackageName()));
+            	}
+                
+                Log.d(TAG, "package names added to file");
             } catch (IOException e) {
                 Log.e(TAG, "io exception: cannot update the file");
             }
+        } else {
+        	try {
+        		for (int j = 1; j < applist.size(); j++) {
+        			manager.updateAppTimeStampFile(fileName, new AppTimeStamp(dateFormat.format(applist.get(j).getLastTimeStamp()), applist.get(j).getPackageName()));
+        		}
+        		Log.d(TAG, "package names added to file");
+        	} catch (IOException e) {
+        		Log.e(TAG, "io exception: cannot update the file");
+        	}
         }
 
 
