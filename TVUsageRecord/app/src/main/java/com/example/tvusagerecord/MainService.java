@@ -171,6 +171,12 @@ public class MainService extends Service {
         // The following code is for storing durations into file
 
         //get the hour from current time
+        try {
+            Thread.sleep(10 * 1000);
+        } catch (InterruptedException e) {
+            Log.e(TAG, "interruption exception when sleeping the thread");
+        }
+
         String currentStr = dateFormat.format(current);
         String hourStr = currentStr.split(" ")[1].split(":")[0];
         if (hourStr.equals("06") || hourStr.equals("07") || hourStr.equals("08") || hourStr.equals("09") || hourStr.equals("10")) {

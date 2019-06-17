@@ -50,7 +50,8 @@ public class Manager {
             col = 5;
         if (period.equals("night"))
             col = 6;
-        table[week][col] = Integer.toString(value);
+        int posValue = Integer.parseInt(table[week][col]);
+        table[week][col] = Integer.toString(posValue + value);
         durationManager.overwriteFile(fileName, table);
     }
 

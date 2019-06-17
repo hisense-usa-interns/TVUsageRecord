@@ -114,4 +114,43 @@ public class DurationFileManager {
         }
         return table;
     }
+
+    /**
+     * get the values for week1 or 2, THE UNIT IS IN SECONDS
+     * @param table 2-D Array of the whole table including titles
+     * @return single string array of week1/2 values
+     *
+     * Format:
+     * total, morning, noon, afternoon, evening, late night (ALL IN SECONDS)
+     *
+     */
+    public String[] getValuesForCertainWeekInSeconds(String[][] table, int week) {
+        String[] row = new String[6];
+        row[0] = table[week][1];
+        row[1] = table[week][2];
+        row[2] = table[week][3];
+        row[3] = table[week][4];
+        row[4] = table[week][5];
+        row[5] = table[week][6];
+        return row;
+    }
+
+    /**
+     * help convert a row containing strings of seconds to double of hours
+     * @param row
+     * @return row converted to hours
+     */
+    public double[] convertRowSecondsToHours(String[] row) {
+        double[] hours = new double[6];
+        for (int i = 0; i < row.length; i++) {
+            int seconds = Integer.parseInt(row[i]);
+            double secondDouble = Double.valueOf(seconds);
+            double divider = 3600.0;
+            double hour = secondDouble / divider;
+            hours[i] = hour;
+        }
+        return hours;
+    }
+
+
 }
