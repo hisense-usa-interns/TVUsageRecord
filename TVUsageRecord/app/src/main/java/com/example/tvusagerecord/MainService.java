@@ -38,6 +38,8 @@ public class MainService extends Service {
     StartTimeRecorder recorder;
     /** constant of a day in milliseconds */
     private static final double DAY_IN_MILLISECONDS = 86400000;
+    /** last update time for duration file */
+    long lastUpdateTime = 0;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -170,72 +172,83 @@ public class MainService extends Service {
 
         // The following code is for storing durations into file
 
-        //get the hour from current time
+
+        /**
         try {
             Thread.sleep(10 * 1000);
         } catch (InterruptedException e) {
             Log.e(TAG, "interruption exception when sleeping the thread");
         }
+         */
 
+        //get the hour from current time
         String currentStr = dateFormat.format(current);
-        String hourStr = currentStr.split(" ")[1].split(":")[0];
-        if (hourStr.equals("06") || hourStr.equals("07") || hourStr.equals("08") || hourStr.equals("09") || hourStr.equals("10")) {
-            //morning
-            //add ten seconds to file
-            //in final UI, convert those seconds from file to hours for view by users
+
+        if (current >= lastUpdateTime + 30 * 1000) {
+
+            String hourStr = currentStr.split(" ")[1].split(":")[0];
+            if (hourStr.equals("06") || hourStr.equals("07") || hourStr.equals("08") || hourStr.equals("09") || hourStr.equals("10")) {
+                //morning
+                //add ten seconds to file
+                //in final UI, convert those seconds from file to hours for view by users
+                try {
+                    manager.updateDurationFile(durationFileName, week, "morning", 30);
+                } catch (UnsupportedEncodingException e) {
+                    Log.e(TAG, "unsupported encoding exception while updating duration file");
+                } catch (FileNotFoundException e) {
+                    Log.e(TAG, "duration file not found");
+                }
+            } else if (hourStr.equals("11") || hourStr.equals("12") || hourStr.equals("13")) {
+                //noon
+                //add ten seconds
+                try {
+                    manager.updateDurationFile(durationFileName, week, "noon", 30);
+                } catch (UnsupportedEncodingException e) {
+                    Log.e(TAG, "unsupported encoding exception while updating duration file");
+                } catch (FileNotFoundException e) {
+                    Log.e(TAG, "duration file not found");
+                }
+            } else if (hourStr.equals("14") || hourStr.equals("15") || hourStr.equals("16") || hourStr.equals("17")) {
+                //afternoon
+                try {
+                    manager.updateDurationFile(durationFileName, week, "afternoon", 30);
+                } catch (UnsupportedEncodingException e) {
+                    Log.e(TAG, "unsupported encoding exception while updating duration file");
+                } catch (FileNotFoundException e) {
+                    Log.e(TAG, "duration file not found");
+                }
+            } else if (hourStr.equals("18") || hourStr.equals("19") || hourStr.equals("20") || hourStr.equals("21") || hourStr.equals("22")) {
+                //evening
+                try {
+                    manager.updateDurationFile(durationFileName, week, "evening", 30);
+                } catch (UnsupportedEncodingException e) {
+                    Log.e(TAG, "unsupported encoding exception while updating duration file");
+                } catch (FileNotFoundException e) {
+                    Log.e(TAG, "duration file not found");
+                }
+            } else {
+                //late night
+                //add ten seconds to file
+                try {
+                    manager.updateDurationFile(durationFileName, week, "night", 30);
+                } catch (UnsupportedEncodingException e) {
+                    Log.e(TAG, "unsupported encoding exception while updating duration file");
+                } catch (FileNotFoundException e) {
+                    Log.e(TAG, "duration file not found");
+                }
+            }
+            //no matter which period it adds to, the total should always be incremented
             try {
-                manager.updateDurationFile(durationFileName, week, "morning", 10);
+                manager.updateDurationFile(durationFileName, week, "total", 30);
             } catch (UnsupportedEncodingException e) {
                 Log.e(TAG, "unsupported encoding exception while updating duration file");
             } catch (FileNotFoundException e) {
                 Log.e(TAG, "duration file not found");
             }
-        } else if (hourStr.equals("11") || hourStr.equals("12") || hourStr.equals("13")) {
-            //noon
-            //add ten seconds
-            try {
-                manager.updateDurationFile(durationFileName, week, "noon", 10);
-            } catch (UnsupportedEncodingException e) {
-                Log.e(TAG, "unsupported encoding exception while updating duration file");
-            } catch (FileNotFoundException e) {
-                Log.e(TAG, "duration file not found");
-            }
-        } else if (hourStr.equals("14") || hourStr.equals("15") || hourStr.equals("16") || hourStr.equals("17")) {
-            //afternoon
-            try {
-                manager.updateDurationFile(durationFileName, week, "afternoon", 10);
-            } catch (UnsupportedEncodingException e) {
-                Log.e(TAG, "unsupported encoding exception while updating duration file");
-            } catch (FileNotFoundException e) {
-                Log.e(TAG, "duration file not found");
-            }
-        } else if (hourStr.equals("18") || hourStr.equals("19") || hourStr.equals("20") || hourStr.equals("21") || hourStr.equals("22")) {
-            //evening
-            try {
-                manager.updateDurationFile(durationFileName, week, "evening", 10);
-            } catch (UnsupportedEncodingException e) {
-                Log.e(TAG, "unsupported encoding exception while updating duration file");
-            } catch (FileNotFoundException e) {
-                Log.e(TAG, "duration file not found");
-            }
-        } else {
-            //late night
-            //add ten seconds to file
-            try {
-                manager.updateDurationFile(durationFileName, week, "night", 10);
-            } catch (UnsupportedEncodingException e) {
-                Log.e(TAG, "unsupported encoding exception while updating duration file");
-            } catch (FileNotFoundException e) {
-                Log.e(TAG, "duration file not found");
-            }
-        }
-        //no matter which period it adds to, the total should always be incremented
-        try {
-            manager.updateDurationFile(durationFileName, week, "total", 10);
-        } catch (UnsupportedEncodingException e) {
-            Log.e(TAG, "unsupported encoding exception while updating duration file");
-        } catch (FileNotFoundException e) {
-            Log.e(TAG, "duration file not found");
+
+            //update the lastUpdateTime variable
+            lastUpdateTime = current;
+
         }
 
 
