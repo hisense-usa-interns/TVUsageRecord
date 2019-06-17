@@ -8,13 +8,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import java.text.ParseException;
 
 public class StartTimeRecorder {
 
-    public static final String TAG = StartTimeRecorder.class.getSimpleName();
+    private final static String TAG = StartTimeRecorder.class.getSimpleName();
     public static final String startFile = "first_time.csv";
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("M-d-yyyy HH:mm:ss");
 
@@ -35,22 +36,32 @@ public class StartTimeRecorder {
     /**
      * store the first start time when the file is empty
      */
-    public void storeFirstTimeToFile() throws FileNotFoundException, IOException {
+    public void storeFirstTimeToFile() throws IOException {
         //check if the first time stamp already exists
         //if exist, set boolean to yes
         boolean firstTimeSet = false;
         File file = new File(Environment.getExternalStorageDirectory(), startFile);
+        Log.d(TAG, "file created successfully - first_time.csv");
+        PrintWriter writer = new PrintWriter(file, "UTF-8");
         FileInputStream stream = new FileInputStream(file);
+
+
+
         Scanner scan = new Scanner(stream, "UTF-8");
         if (scan.hasNextLine()) {
             firstTimeSet = true;
         }
         //if the first time stamp is not yet set
         if (firstTimeSet == false) {
-            FileWriter csvWriter = new FileWriter(file, true);
-            //append the current time in given date format to the file
-            csvWriter.append(dateFormat.format(System.currentTimeMillis()));
-            csvWriter.close();
+
+
+            //FileWriter csvWriter = new FileWriter(file, true);
+            //csvWriter.append(dateFormat.format(System.currentTimeMillis()));
+            //csvWriter.close();
+
+            writer.print(dateFormat.format(System.currentTimeMillis()));
+            writer.close();
+
         }
     }
 

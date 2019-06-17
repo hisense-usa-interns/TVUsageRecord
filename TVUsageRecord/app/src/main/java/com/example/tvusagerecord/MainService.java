@@ -69,6 +69,7 @@ public class MainService extends Service {
         if (recorder.isExternalStorageWritable()) {
             try {
                 recorder.storeFirstTimeToFile();
+                Log.d(TAG, "file created successfully - first_time.csv");
             } catch (FileNotFoundException e) {
                 Log.e(TAG, "start time file not found when storing");
             } catch (IOException e) {
