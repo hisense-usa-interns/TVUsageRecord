@@ -19,28 +19,40 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-public class Week1Stats extends AppCompatActivity {
+public class WeekStats extends AppCompatActivity {
 
-    private String TAG = MainActivity.class.getSimpleName();
+    private String TAG = WeekStats.class.getSimpleName();
     private String durationFileName = "duration.csv";
 
 
     private float[] yData = new float[5];
     private String[] xData = {"Morning", "Noon", "Afternoon", "Evening", "Night"};
     float total;
+    static int weekNumber = 1;
     PieChart pieChart;
+
+    /**
+     * setter method for the weekNumber
+     * @param weekNumber
+     */
+    public void setWeekNumber(int weekNumber) {
+        this.weekNumber = weekNumber;
+        Log.d(TAG, "weekNumber: " + this.weekNumber);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_week1_stats);
+        setContentView(R.layout.activity_week_stats);
         Log.d(TAG, "onCreate: starting main activity");
+
+        Log.d(TAG, "weekNumber: " + this.weekNumber);
 
         //getting the yData
         DurationFileManager durationFileManager = new DurationFileManager();
         try {
             String[][] table = durationFileManager.readDurationFile(durationFileName);
-            String[] row = durationFileManager.getValuesForCertainWeekInSeconds(table, 1);
+            String[] row = durationFileManager.getValuesForCertainWeekInSeconds(table, weekNumber);
             float[] time = durationFileManager.convertRowSecondsToHours(row);
             total = time[0];
 
@@ -64,7 +76,7 @@ public class Week1Stats extends AppCompatActivity {
         pieChart.setHoleColor(Color.BLACK);
         pieChart.setCenterTextColor(Color.WHITE);
         pieChart.setTransparentCircleAlpha(0);
-        pieChart.setCenterText("Week 1 Usage Stats");
+        pieChart.setCenterText("Week" + weekNumber + " Usage Stats");
         pieChart.setCenterTextSize(12);
 
         addDataSet();
@@ -87,7 +99,7 @@ public class Week1Stats extends AppCompatActivity {
                 }
 
                 String period = xData[pos1];
-                Toast.makeText(Week1Stats.this, "Period: " + period + "\n"
+                Toast.makeText(WeekStats.this, "Period: " + period + "\n"
                         + "Hours: " + time, Toast.LENGTH_SHORT).show();
             }
 

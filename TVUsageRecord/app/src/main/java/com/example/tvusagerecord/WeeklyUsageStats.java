@@ -13,12 +13,16 @@ public class WeeklyUsageStats extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weekly_usage_stats);
 
+        //reuse week stats graphing code
+        final WeekStats weekStats = new WeekStats();
+
         //button for loading page of weekly usage stats - week 1
         Button week1 = (Button) findViewById(R.id.week1);
         week1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(WeeklyUsageStats.this, Week1Stats.class));
+                weekStats.setWeekNumber(1);
+                startActivity(new Intent(WeeklyUsageStats.this, WeekStats.class));
             }
         });
 
@@ -27,7 +31,8 @@ public class WeeklyUsageStats extends AppCompatActivity {
         week2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(WeeklyUsageStats.this, Week2Stats.class));
+                weekStats.setWeekNumber(2);
+                startActivity(new Intent(WeeklyUsageStats.this, WeekStats.class));
             }
         });
     }

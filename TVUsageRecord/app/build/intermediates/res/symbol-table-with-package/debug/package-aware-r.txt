@@ -1282,8 +1282,7 @@ layout abc_tooltip
 layout activity_app_usage_history
 layout activity_apps_rating
 layout activity_main
-layout activity_week1_stats
-layout activity_week2_stats
+layout activity_week_stats
 layout activity_weekly_usage_stats
 layout content_apps_rating
 layout design_bottom_navigation_item

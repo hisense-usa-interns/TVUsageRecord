@@ -18,8 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Week2Stats"></activity>
-        <activity android:name=".Week1Stats" />
+        <activity android:name=".WeekStats" />
         <activity android:name=".WeeklyUsageStats" />
         <activity android:name=".AppUsageHistoryActivity" />
         <activity
