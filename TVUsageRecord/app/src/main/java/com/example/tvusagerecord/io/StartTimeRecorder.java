@@ -42,7 +42,7 @@ public class StartTimeRecorder {
         boolean firstTimeSet = false;
         File file = new File(Environment.getExternalStorageDirectory(), startFile);
         Log.d(TAG, "file created successfully - first_time.csv");
-        PrintWriter writer = new PrintWriter(file, "UTF-8");
+
         FileInputStream stream = new FileInputStream(file);
 
 
@@ -58,7 +58,7 @@ public class StartTimeRecorder {
             //FileWriter csvWriter = new FileWriter(file, true);
             //csvWriter.append(dateFormat.format(System.currentTimeMillis()));
             //csvWriter.close();
-
+            PrintWriter writer = new PrintWriter(file, "UTF-8");
             writer.print(dateFormat.format(System.currentTimeMillis()));
             writer.close();
 
