@@ -91,13 +91,10 @@ public class MainService extends Service {
         //tell whether the current week is week1 or week2
         int week = 1;
         long current = System.currentTimeMillis();
-        int daysOld = (int)((current - firstTime) / DAY_IN_MILLISECONDS);
-        if (daysOld <= 7) {
-            week = 1;
-        } else {
-            week = 2;
-        }
+        double daysOld = ((current - firstTime) / DAY_IN_MILLISECONDS);
 
+        double weekDouble = daysOld / 7.0;
+        week = (int) weekDouble + 1;
 
         //TO DO: 1. Continuously query usage stats
         //       2. Refer to file, add new item to file if it is not duplicate with the last item from the file

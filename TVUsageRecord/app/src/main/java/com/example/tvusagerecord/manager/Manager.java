@@ -39,17 +39,17 @@ public class Manager {
         String[][] table = durationManager.readDurationFile(fileName);
         int col = 0;
         if (period.equals("total"))
-            col = 1;
+            col = 0;
         if (period.equals("morning"))
-            col = 2;
+            col = 1;
         if (period.equals("noon"))
-            col = 3;
+            col = 2;
         if (period.equals("afternoon"))
-            col = 4;
+            col = 3;
         if (period.equals("evening"))
-            col = 5;
+            col = 4;
         if (period.equals("night"))
-            col = 6;
+            col = 5;
         int posValue = Integer.parseInt(table[week][col]);
         table[week][col] = Integer.toString(posValue + value);
         durationManager.overwriteFile(fileName, table);

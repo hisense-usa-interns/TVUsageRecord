@@ -20,32 +20,6 @@ public class DurationFileManager {
     public static final String TAG = DurationFileManager.class.getSimpleName();
 
     /**
-     * print the format of Duration to create a file, Used for creating a file
-     * @param duration object
-     * @param week 1-first week since start date, 2-second
-     * @param fileName to print to
-     */
-    public void printToConstructFileByDuration(Duration duration, int week, String fileName) throws FileNotFoundException, UnsupportedEncodingException {
-        File file = new File(Environment.getExternalStorageDirectory(), fileName);
-        PrintWriter writer = new PrintWriter(file, "UTF-8");
-        writer.println("DURATION SHEET,Total,Morning Hours,Noon Hours,Afternoon Hours,Evening Hours,Night Hours");
-        //if duration is in the first week
-        if (week == 1) {
-            writer.println("Week 1," + duration.getTotal() + "," + duration.getMorning() + "," + duration.getNoon() + "," + duration.getAfternoon() + "," + duration.getEvening() + "," + duration.getNight());
-        } else {
-            writer.println("Week 1," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0);
-        }
-        //if duration is in the second week
-        if (week == 2) {
-            writer.println("Week 2," + duration.getTotal() + "," + duration.getMorning() + "," + duration.getNoon() + "," + duration.getAfternoon() + "," + duration.getEvening() + "," + duration.getNight());
-        } else {
-            writer.println("Week 2," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0);
-        }
-        writer.close();
-    }
-
-
-    /**
      * Check if the external storage of the device is available for read and write
      * @return if external storage available
      */
@@ -67,9 +41,9 @@ public class DurationFileManager {
     public void constructFile(String fileName) throws FileNotFoundException, UnsupportedEncodingException {
         File file = new File(Environment.getExternalStorageDirectory(), fileName);
         PrintWriter writer = new PrintWriter(file, "UTF-8");
-        writer.println("DURATION SHEET,Total,Morning Hours,Noon Hours,Afternoon Hours,Evening Hours,Night Hours");
-        writer.println("Week 1," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0);
-        writer.println("Week 2," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0);
+        writer.println("Total,Morning Hours,Noon Hours,Afternoon Hours,Evening Hours,Night Hours");
+        //writer.println("Week 1," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0);
+        //writer.println("Week 2," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0);
         writer.close();
     }
 
