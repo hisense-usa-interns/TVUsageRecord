@@ -187,6 +187,15 @@ public class MainService extends Service {
         if (current >= lastUpdateTime + 30 * 1000) {
 
             String hourStr = currentStr.split(" ")[1].split(":")[0];
+
+            try {
+                manager.createDurationFile(durationFileName);
+            } catch (FileNotFoundException e) {
+                Log.e(TAG, "file not found when creating the duration file");
+            } catch (UnsupportedEncodingException e) {
+                Log.e(TAG, "unsupported encoding when creating the duration file");
+            }
+
             if (hourStr.equals("06") || hourStr.equals("07") || hourStr.equals("08") || hourStr.equals("09") || hourStr.equals("10")) {
                 //morning
                 //add ten seconds to file

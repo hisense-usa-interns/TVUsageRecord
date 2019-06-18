@@ -87,4 +87,15 @@ public class Manager {
     public List<String> getAppsRunningHistory(String fileName) throws FileNotFoundException {
         return timestampManager.readFile(fileName);
     }
+
+    /**
+     * create a initial duration file
+     * @param fileName
+     * @throws FileNotFoundException
+     * @throws UnsupportedEncodingException
+     */
+    public void createDurationFile(String fileName) throws FileNotFoundException, UnsupportedEncodingException {
+        durationManager.constructFile(fileName);
+    }
+
 }
