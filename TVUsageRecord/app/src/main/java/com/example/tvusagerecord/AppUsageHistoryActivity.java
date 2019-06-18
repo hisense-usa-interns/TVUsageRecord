@@ -58,6 +58,7 @@ public class AppUsageHistoryActivity extends AppCompatActivity {
         sortFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "sort button clicked");
 
                 Manager manager = new Manager();
                 List<String> fileLines = new ArrayList<>();
