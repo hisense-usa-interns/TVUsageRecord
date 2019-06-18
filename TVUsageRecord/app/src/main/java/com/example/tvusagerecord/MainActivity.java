@@ -3,6 +3,7 @@ package com.example.tvusagerecord;
 import android.Manifest;
 import android.app.AppOpsManager;
 import android.content.pm.PackageManager;
+import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -22,7 +23,11 @@ import com.example.tvusagerecord.io.DurationFileManager;
 import com.example.tvusagerecord.object.AppTimeStamp;
 import com.example.tvusagerecord.object.Duration;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -65,6 +70,17 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "hit broadcast receiver");
         MBroadcastReceiver mBroadcastReceiver = new MBroadcastReceiver();
         mBroadcastReceiver.onReceive(context, new Intent(MainActivity.this, MBroadcastReceiver.class));
+
+//        DurationFileManager durationFileManager = new DurationFileManager();
+////        try {
+////            durationFileManager.constructFile("duration.csv");
+////        } catch (FileNotFoundException e) {
+////            e.printStackTrace();
+////        } catch (UnsupportedEncodingException e) {
+////            e.printStackTrace();
+////        }
+
+
     }
 
 
@@ -72,8 +88,8 @@ public class MainActivity extends AppCompatActivity {
      * check for permission status
      * @param permission
      */
-    public boolean checkPermission(String permission) {
-        int check = ContextCompat.checkSelfPermission(this, permission);
-        return (check == PackageManager.PERMISSION_GRANTED);
-    }
+//    public boolean checkPermission(String permission) {
+//        int check = ContextCompat.checkSelfPermission(this, permission);
+//        return (check == PackageManager.PERMISSION_GRANTED);
+//    }
 }

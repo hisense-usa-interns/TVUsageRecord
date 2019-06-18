@@ -44,6 +44,9 @@ public class DurationFileManager {
         writer.println("Total,Morning Hours,Noon Hours,Afternoon Hours,Evening Hours,Night Hours");
         //writer.println("Week 1," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0);
         //writer.println("Week 2," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0);
+        for (int i = 0; i < 100; i++) {
+            writer.println(0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0);
+        }
         writer.close();
     }
 
@@ -59,7 +62,7 @@ public class DurationFileManager {
         File file = new File(Environment.getExternalStorageDirectory(), fileName);
         PrintWriter writer = new PrintWriter(file, "UTF-8");
         for (int i = 0; i < table.length; i++) {
-            writer.println(table[i][0] + "," + table[i][1] + "," + table[i][2] + "," + table[i][3] + "," + table[i][4] + "," + table[i][5] + "," + table[i][6]);
+            writer.println(table[i][0] + "," + table[i][1] + "," + table[i][2] + "," + table[i][3] + "," + table[i][4] + "," + table[i][5]);
         }
         writer.close();
     }
@@ -76,7 +79,7 @@ public class DurationFileManager {
         FileInputStream stream = new FileInputStream(file);
         Scanner scan = new Scanner(stream, "UTF-8");
 
-        String[][] table = new String[4][7];
+        String[][] table = new String[102][6];
         int row = 0;
         while (scan.hasNextLine()) {
             String line = scan.nextLine();
@@ -100,12 +103,12 @@ public class DurationFileManager {
      */
     public String[] getValuesForCertainWeekInSeconds(String[][] table, int week) {
         String[] row = new String[6];
-        row[0] = table[week][1];
-        row[1] = table[week][2];
-        row[2] = table[week][3];
-        row[3] = table[week][4];
-        row[4] = table[week][5];
-        row[5] = table[week][6];
+        row[0] = table[week][0];
+        row[1] = table[week][1];
+        row[2] = table[week][2];
+        row[3] = table[week][3];
+        row[4] = table[week][4];
+        row[5] = table[week][5];
         return row;
     }
 

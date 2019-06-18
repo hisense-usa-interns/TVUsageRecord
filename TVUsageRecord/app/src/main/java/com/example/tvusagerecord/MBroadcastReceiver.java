@@ -11,6 +11,7 @@ import com.example.tvusagerecord.manager.Manager;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
+import java.util.Scanner;
 
 /**
  * receive the TV boot up broadcast to start the usage recording app and make track of
@@ -43,7 +44,14 @@ public class MBroadcastReceiver extends BroadcastReceiver {
             if (!file.exists()) {
                 manager.createDurationFile(durationFileName);
                 Log.d(TAG, "duration file created");
+            } else {
+                Scanner scan = new Scanner(file);
+                if (!scan.hasNext()) {
+                    manager.createDurationFile(durationFileName);
+                    Log.d(TAG, "duration file created 2");
+                }
             }
+
         } catch (FileNotFoundException e) {
             Log.e(TAG, "file not found when creating the duration file");
         } catch (UnsupportedEncodingException e) {
