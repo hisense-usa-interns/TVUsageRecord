@@ -120,6 +120,7 @@ public class AppTimeStampFileManager {
         lineNumberReader.close();
         if (lines > 5000) {
             FileWriter csvWriter = new FileWriter(file, false);
+            csvWriter.close();
         }
     }
 }
