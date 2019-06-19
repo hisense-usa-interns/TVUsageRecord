@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.nfc.Tag;
 import android.os.IBinder;
 import com.example.tvusagerecord.manager.Manager;
+
+import android.support.v4.app.JobIntentService;
 import android.util.Log;
 import android.app.AlarmManager;
 import android.content.Context;
@@ -22,7 +24,7 @@ import java.util.List;
 /**
  * main service
  */
-public class MainService extends Service {
+public class MainService extends JobIntentService {
 
     /** class unique tag */
     private static final String TAG = "MainService";
@@ -40,12 +42,12 @@ public class MainService extends Service {
     private static final double DAY_IN_MILLISECONDS = 86400000;
     /** last update time for duration file */
     long lastUpdateTime = 0;
+    /**
+     * Unique job ID for this service.
+     */
+    static final int JOB_ID = 1000;
 
-    @Override
-    public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
+
 
 
     @Override
@@ -58,14 +60,26 @@ public class MainService extends Service {
 
 
     /**
+     * Convenience method for enqueuing work in to this service.
+     */
+    static void enqueueWork(Context context, Intent work) {
+        enqueueWork(context, MainService.class, JOB_ID, work);
+    }
+
+
+    /**
      * Check for running apps and alarm 10 seconds to make sure the service keep running
      * @param intent
-     * @param flag
-     * @param startId
      * @return
      */
     @Override
-    public int onStartCommand(Intent intent, int flag, int startId) {
+    public void onHandleWork(Intent intent) {
+
+        try {
+            manager.clearTimeStampFile(fileName);
+        } catch (IOException e) {
+            
+        }
 
         //store the first boot time to file
         if (recorder.isExternalStorageWritable()) {
@@ -105,14 +119,14 @@ public class MainService extends Service {
         List<UsageStats> applist = usm.queryUsageStats(UsageStatsManager.INTERVAL_BEST, current - 60 * 60 * 1000, current);
         Log.d(TAG, "queried past history for 10 seconds");
         //for a 10 seconds running, we only need the newest one app, which is the index 0
-        UsageStats app;
+        UsageStats app = null;
         try {
             for(UsageStats a : applist){
                 Log.e(TAG, "app is: " + a.getPackageName());
             }
             app = applist.get(0);
         } catch (IndexOutOfBoundsException e) {
-            return START_STICKY;
+            onHandleWork(intent);
         }
         //get the launch time for this app
         long launchTime = app.getLastTimeStamp();
@@ -127,7 +141,7 @@ public class MainService extends Service {
         } catch (FileNotFoundException e) {
             Log.e(TAG, "app timestamp file not existed");
         } catch (IndexOutOfBoundsException e) {
-            return START_STICKY;
+            onHandleWork(intent);
         }
 
         Log.d(TAG, "package name is: " + pkgName);
@@ -219,6 +233,7 @@ public class MainService extends Service {
 
             //update the lastUpdateTime variable
             lastUpdateTime = current;
+            Log.d(TAG, "updated duration.csv");
 
         }
 
@@ -229,8 +244,12 @@ public class MainService extends Service {
         alarms.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 10 * 1000, alarmIntent);
         Log.e(TAG, "Start the service alarm set");
 
-        //return START_STICKY to recreate the service when available
-        return START_STICKY;
+        try {
+            Thread.sleep(10 * 1000);
+        } catch (InterruptedException e) {
+
+        }
+        onHandleWork(intent);
     }
 
 

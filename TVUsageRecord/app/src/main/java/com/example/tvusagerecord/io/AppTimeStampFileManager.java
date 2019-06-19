@@ -2,7 +2,8 @@ package com.example.tvusagerecord.io;
 
 import android.os.Environment;
 import android.util.Log;
-
+import java.io.LineNumberReader;
+import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -105,13 +106,22 @@ public class AppTimeStampFileManager {
 
 
     /**
-     * clear the file app_timestamp.csv
+     * clear the file app_timestamp.csv if lines reached 5000
      * @param fileName
      * @throws FileNotFoundException
      * @throws UnsupportedEncodingException
      */
     public void clearFile(String fileName) throws IOException {
         File file = new File(Environment.getExternalStorageDirectory(), fileName);
-        FileWriter csvWriter = new FileWriter(file, false);
+
+        LineNumberReader lineNumberReader = new LineNumberReader(new FileReader(file));
+        lineNumberReader.skip(Long.MAX_VALUE);
+        int lines = lineNumberReader.getLineNumber();
+        lineNumberReader.close();
+        if (lines > 5000) {
+            FileWriter csvWriter = new FileWriter(file, false);
+            csvWriter.close();
+            Log.d(TAG, "cleared data from app_timestamp.csv");
+        }
     }
 }

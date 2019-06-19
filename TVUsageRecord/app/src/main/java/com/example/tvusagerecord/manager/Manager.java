@@ -98,4 +98,13 @@ public class Manager {
         durationManager.constructFile(fileName);
     }
 
+    /**
+     * clear the time stamp file if lines reach 5000
+     * @param fileName
+     * @throws IOException
+     */
+    public void clearTimeStampFile(String fileName) throws IOException {
+        timestampManager.clearFile(fileName);
+    }
+
 }
