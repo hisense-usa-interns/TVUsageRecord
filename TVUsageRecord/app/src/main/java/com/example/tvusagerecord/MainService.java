@@ -233,6 +233,7 @@ public class MainService extends JobIntentService {
 
             //update the lastUpdateTime variable
             lastUpdateTime = current;
+            Log.d(TAG, "updated duration.csv");
 
         }
 

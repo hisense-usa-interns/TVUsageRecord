@@ -121,6 +121,7 @@ public class AppTimeStampFileManager {
         if (lines > 5000) {
             FileWriter csvWriter = new FileWriter(file, false);
             csvWriter.close();
+            Log.d(TAG, "cleared data from app_timestamp.csv");
         }
     }
 }
