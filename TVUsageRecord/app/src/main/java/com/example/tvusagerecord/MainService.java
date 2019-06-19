@@ -75,6 +75,12 @@ public class MainService extends JobIntentService {
     @Override
     public void onHandleWork(Intent intent) {
 
+        try {
+            manager.clearTimeStampFile(fileName);
+        } catch (IOException e) {
+            
+        }
+
         //store the first boot time to file
         if (recorder.isExternalStorageWritable()) {
             try {
