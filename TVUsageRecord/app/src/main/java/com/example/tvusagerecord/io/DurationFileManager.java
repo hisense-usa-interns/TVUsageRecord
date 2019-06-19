@@ -137,6 +137,9 @@ public class DurationFileManager {
      */
     public float getTotalUsage(String[][] table, int week) {
         String total = table[week][0];
+        if (total.equals("null")) {
+            return 0;
+        }
         float totalFloat = Float.valueOf(total);
         return totalFloat;
     }
