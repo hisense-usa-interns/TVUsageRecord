@@ -76,7 +76,7 @@ public class WeekStats extends AppCompatActivity {
         pieChart.setHoleColor(Color.BLACK);
         pieChart.setCenterTextColor(Color.WHITE);
         pieChart.setTransparentCircleAlpha(0);
-        pieChart.setCenterText("Week" + weekNumber + " Usage Stats");
+        pieChart.setCenterText("Week " + weekNumber + " Usage Stats");
         pieChart.setCenterTextSize(12);
 
         addDataSet();

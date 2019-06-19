@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.tvusagerecord.manager.Manager;
 
@@ -34,6 +35,7 @@ public class MBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.e(TAG, "get action " + intent.getAction());
+        Toast.makeText(context, "On Boot", Toast.LENGTH_LONG).show();
         // if detected TV boot up
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
             Intent serviceIntent = new Intent(context, MainService.class);
@@ -58,7 +60,8 @@ public class MBroadcastReceiver extends BroadcastReceiver {
                 Log.e(TAG, "unsupported encoding when creating the duration file");
             }
 
-            context.startService(serviceIntent);
+            //context.startService(serviceIntent);
+            MainService.enqueueWork(context, new Intent());
         }
     }
 }

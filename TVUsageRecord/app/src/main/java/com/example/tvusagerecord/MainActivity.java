@@ -67,18 +67,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Log.d(TAG, "hit broadcast receiver");
-        MBroadcastReceiver mBroadcastReceiver = new MBroadcastReceiver();
-        mBroadcastReceiver.onReceive(context, new Intent(MainActivity.this, MBroadcastReceiver.class));
+        //Log.d(TAG, "hit broadcast receiver");
+        //MBroadcastReceiver mBroadcastReceiver = new MBroadcastReceiver();
+        //mBroadcastReceiver.onReceive(context, new Intent(MainActivity.this, MBroadcastReceiver.class));
 
 //        DurationFileManager durationFileManager = new DurationFileManager();
-////        try {
-////            durationFileManager.constructFile("duration.csv");
-////        } catch (FileNotFoundException e) {
-////            e.printStackTrace();
-////        } catch (UnsupportedEncodingException e) {
-////            e.printStackTrace();
-////        }
+//        try {
+//            durationFileManager.constructFile("duration.csv");
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
 
 
     }
@@ -88,8 +88,8 @@ public class MainActivity extends AppCompatActivity {
      * check for permission status
      * @param permission
      */
-//    public boolean checkPermission(String permission) {
-//        int check = ContextCompat.checkSelfPermission(this, permission);
-//        return (check == PackageManager.PERMISSION_GRANTED);
-//    }
+    public boolean checkPermission(String permission) {
+        int check = ContextCompat.checkSelfPermission(this, permission);
+        return (check == PackageManager.PERMISSION_GRANTED);
+    }
 }

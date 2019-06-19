@@ -41,7 +41,12 @@ public class StartTimeRecorder {
         //if exist, set boolean to yes
         boolean firstTimeSet = false;
         File file = new File(Environment.getExternalStorageDirectory(), startFile);
-        Log.d(TAG, "file created successfully - first_time.csv");
+        if (!file.exists()) {
+            PrintWriter w = new PrintWriter(file, "UTF-8");
+            w.print(dateFormat.format(System.currentTimeMillis()));
+            w.close();
+            Log.d(TAG, "file created successfully - first_time.csv");
+        }
 
         FileInputStream stream = new FileInputStream(file);
 
@@ -51,18 +56,14 @@ public class StartTimeRecorder {
         if (scan.hasNextLine()) {
             firstTimeSet = true;
         }
+
         //if the first time stamp is not yet set
         if (firstTimeSet == false) {
-
-
-            //FileWriter csvWriter = new FileWriter(file, true);
-            //csvWriter.append(dateFormat.format(System.currentTimeMillis()));
-            //csvWriter.close();
             PrintWriter writer = new PrintWriter(file, "UTF-8");
             writer.print(dateFormat.format(System.currentTimeMillis()));
             writer.close();
-
         }
+        Log.d(TAG, "firstTimeSet: " + firstTimeSet);
     }
 
     /**
