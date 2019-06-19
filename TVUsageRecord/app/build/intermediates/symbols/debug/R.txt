@@ -1227,11 +1227,9 @@ int id useLogo 0x7f0800c9
 int id viewHistory 0x7f0800ca
 int id view_offset_helper 0x7f0800cb
 int id visible 0x7f0800cc
-int id week1 0x7f0800cd
-int id week2 0x7f0800ce
-int id withText 0x7f0800cf
-int id wrap 0x7f0800d0
-int id wrap_content 0x7f0800d1
+int id withText 0x7f0800cd
+int id wrap 0x7f0800ce
+int id wrap_content 0x7f0800cf
 int integer abc_config_activityDefaultDur 0x7f090000
 int integer abc_config_activityShortDur 0x7f090001
 int integer app_bar_elevation_anim_duration 0x7f090002

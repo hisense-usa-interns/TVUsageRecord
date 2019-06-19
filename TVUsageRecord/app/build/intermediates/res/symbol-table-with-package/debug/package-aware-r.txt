@@ -1228,8 +1228,6 @@ id useLogo
 id viewHistory
 id view_offset_helper
 id visible
-id week1
-id week2
 id withText
 id wrap
 id wrap_content
