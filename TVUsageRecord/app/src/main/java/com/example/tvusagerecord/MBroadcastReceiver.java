@@ -35,30 +35,30 @@ public class MBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.e(TAG, "get action " + intent.getAction());
         // if detected TV boot up
-        //if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
+        if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
             Intent serviceIntent = new Intent(context, MainService.class);
-            serviceIntent.putExtra("WeekNum", 1);
+            //serviceIntent.putExtra("WeekNum", 1);
 
-        try {
-            File file = new File(Environment.getExternalStorageDirectory(), durationFileName);
-            if (!file.exists()) {
-                manager.createDurationFile(durationFileName);
-                Log.d(TAG, "duration file created");
-            } else {
-                Scanner scan = new Scanner(file);
-                if (!scan.hasNext()) {
+            try {
+                File file = new File(Environment.getExternalStorageDirectory(), durationFileName);
+                if (!file.exists()) {
                     manager.createDurationFile(durationFileName);
-                    Log.d(TAG, "duration file created 2");
+                    Log.d(TAG, "duration file created");
+                } else {
+                    Scanner scan = new Scanner(file);
+                    if (!scan.hasNext()) {
+                        manager.createDurationFile(durationFileName);
+                        Log.d(TAG, "duration file created 2");
+                    }
                 }
+
+            } catch (FileNotFoundException e) {
+                Log.e(TAG, "file not found when creating the duration file");
+            } catch (UnsupportedEncodingException e) {
+                Log.e(TAG, "unsupported encoding when creating the duration file");
             }
 
-        } catch (FileNotFoundException e) {
-            Log.e(TAG, "file not found when creating the duration file");
-        } catch (UnsupportedEncodingException e) {
-            Log.e(TAG, "unsupported encoding when creating the duration file");
-        }
-
             context.startService(serviceIntent);
-        //}
+        }
     }
 }
