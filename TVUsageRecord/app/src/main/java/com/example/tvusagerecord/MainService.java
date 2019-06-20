@@ -36,12 +36,16 @@ public class MainService extends JobIntentService {
     public static final String fileName = "app_timestamp.csv";
     /** file name of duration (periods) file */
     public static final String durationFileName = "duration.csv";
+    /** file name of app rating file */
+    public static final String ratingFileName = "rating.csv";
     /** start time recorder */
     StartTimeRecorder recorder;
     /** constant of a day in milliseconds */
     private static final double DAY_IN_MILLISECONDS = 86400000;
     /** last update time for duration file */
     long lastUpdateTime = 0;
+    /** last update time for app rating file */
+    long lastUpdateRating = 0;
     /**
      * Unique job ID for this service.
      */
@@ -117,7 +121,7 @@ public class MainService extends JobIntentService {
         UsageStatsManager usm = (UsageStatsManager) context.getSystemService(Context.USAGE_STATS_SERVICE);
 
         List<UsageStats> applist = usm.queryUsageStats(UsageStatsManager.INTERVAL_BEST, current - 60 * 60 * 1000, current);
-        Log.d(TAG, "queried past history for 10 seconds");
+        Log.d(TAG, "queried past history for an hour");
         //for a 10 seconds running, we only need the newest one app, which is the index 0
         UsageStats app = null;
         try {
@@ -236,6 +240,21 @@ public class MainService extends JobIntentService {
             Log.d(TAG, "updated duration.csv");
 
         }
+
+        /** The following is for app rating file */
+        long current2 = System.currentTimeMillis();
+        if (current2 - lastUpdateRating > 30 * 1000) {
+            List<UsageStats> apps = usm.queryUsageStats(UsageStatsManager.INTERVAL_BEST, current - 60 * 1000, current);
+            for (UsageStats u : apps) {
+                try {
+                    manager.updateApp(u, ratingFileName);
+                } catch (IOException e) {
+                    Log.e(TAG, "IO Exception when updating app rating file");
+                }
+            }
+            lastUpdateRating = current2;
+        }
+        /** Above is for app rating file */
 
         //use alarm to ensure the service is running every 10 seconds
         AlarmManager alarms = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);

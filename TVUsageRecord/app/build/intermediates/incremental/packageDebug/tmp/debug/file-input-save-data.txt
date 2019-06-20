@@ -1,11 +1,11 @@
 #Internal package file, do not edit.
-#Wed Jun 19 15:44:05 EDT 2019
-1.base=C\:\\Users\\Tusheet Goli\\StudioProjects\\TVUsageRecord\\TVUsageRecord\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\out
+#Wed Jun 19 17:44:16 EDT 2019
+1.base=C\:\\Users\\remus\\git\\TVUsageRecord\\TVUsageRecord\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\out
 0.baseType=DIRECTORY
 1.baseType=DIRECTORY
 count=2
 1.set=DEX
 0.path=classes.dex
 0.set=DEX
-0.base=C\:\\Users\\Tusheet Goli\\StudioProjects\\TVUsageRecord\\TVUsageRecord\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\out
+0.base=C\:\\Users\\remus\\git\\TVUsageRecord\\TVUsageRecord\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\out
 1.path=classes.dex

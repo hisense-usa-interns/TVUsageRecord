@@ -25,6 +25,7 @@ public class MBroadcastReceiver extends BroadcastReceiver {
     /** manager regulating file of duration, app time stamp, etc. */
     Manager manager = new Manager();
     private static final String durationFileName = "duration.csv";
+    private static final String ratingFileName = "rating.csv";
 
 
     /**
@@ -39,7 +40,6 @@ public class MBroadcastReceiver extends BroadcastReceiver {
         // if detected TV boot up
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
             Intent serviceIntent = new Intent(context, MainService.class);
-            //serviceIntent.putExtra("WeekNum", 1);
 
             try {
                 File file = new File(Environment.getExternalStorageDirectory(), durationFileName);
@@ -58,6 +58,18 @@ public class MBroadcastReceiver extends BroadcastReceiver {
                 Log.e(TAG, "file not found when creating the duration file");
             } catch (UnsupportedEncodingException e) {
                 Log.e(TAG, "unsupported encoding when creating the duration file");
+            }
+
+            try {
+                File file2 = new File(Environment.getExternalStorageDirectory(), ratingFileName);
+                if (!file2.exists()) {
+                    manager.createEmptyRatingFile(ratingFileName);
+                    Log.d(TAG, "app rating file created");
+                }
+            } catch (FileNotFoundException e) {
+                Log.e(TAG, "file not found exception when creating app rating file");
+            } catch (UnsupportedEncodingException e) {
+                Log.e(TAG, "unsupported encoding when creating app rating file");
             }
 
             //context.startService(serviceIntent);

@@ -1,5 +1,6 @@
 package com.example.tvusagerecord.manager;
 
+import com.example.tvusagerecord.io.AppRatingFileManager;
 import com.example.tvusagerecord.io.DurationFileManager;
 import com.example.tvusagerecord.io.AppTimeStampFileManager;
 import com.example.tvusagerecord.object.AppTimeStamp;
@@ -8,6 +9,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Collection;
+import android.app.usage.UsageStats;
 
 /**
  * Manager of usage recording app
@@ -18,6 +20,8 @@ public class Manager {
     DurationFileManager durationManager;
     /** file manager of app time stamp */
     AppTimeStampFileManager timestampManager;
+    /** file manager of apps rating */
+    AppRatingFileManager ratingManager;
 
     /**
      * manager constructor
@@ -25,6 +29,7 @@ public class Manager {
     public Manager() {
         this.durationManager = new DurationFileManager();
         this.timestampManager = new AppTimeStampFileManager();
+        this.ratingManager = new AppRatingFileManager();
     }
 
 
@@ -105,6 +110,25 @@ public class Manager {
      */
     public void clearTimeStampFile(String fileName) throws IOException {
         timestampManager.clearFile(fileName);
+    }
+
+    /**
+     * create an empty app rating file
+     * @param fileName
+     * @throws FileNotFoundException
+     * @throws UnsupportedEncodingException
+     */
+    public void createEmptyRatingFile(String fileName) throws FileNotFoundException, UnsupportedEncodingException {
+        ratingManager.constructFile(fileName);
+    }
+
+    /**
+     * update an new app to the app rating file
+     * @param u
+     * @param fileName
+     */
+    public void updateApp(UsageStats u, String fileName) throws IOException {
+        ratingManager.updateAppRatingFile(fileName, u);
     }
 
 }

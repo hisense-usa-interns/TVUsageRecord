@@ -10,6 +10,11 @@ import android.widget.ListView;
 import android.app.usage.UsageStats;
 import java.util.List;
 import android.widget.ArrayAdapter;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
+import com.example.tvusagerecord.io.AppRatingFileManager;
+import com.example.tvusagerecord.object.AppTimeStamp;
 
 public class AppsRating extends AppCompatActivity {
 
@@ -19,9 +24,17 @@ public class AppsRating extends AppCompatActivity {
         setContentView(R.layout.activity_apps_rating);
         final ListView listview = (ListView) findViewById(R.id.listview);
 
-        List<UsageStats> usageStatsList = UStats.getUsageStatsList(AppsRating.this, 2, 0);
-        List<UsageStats> sortedList = UStats.sortUsageStatsList(usageStatsList);
-        List<String> strList = UStats.getUsageStatsListStr(sortedList);
+        //List<UsageStats> usageStatsList = UStats.getUsageStatsList(AppsRating.this, 2, 0);
+        //List<UsageStats> sortedList = UStats.sortUsageStatsList(usageStatsList);
+        //List<String> strList = UStats.getUsageStatsListStr(sortedList);
+
+        List<String> strList = new ArrayList<>();
+        try {
+            List<AppTimeStamp> list = AppRatingFileManager.getUsageStatsListFromFile("rating.csv");
+            strList = AppRatingFileManager.sortAndConvertToStr(list);
+        } catch (FileNotFoundException e) {
+
+        }
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, strList);
         listview.setAdapter(adapter);
