@@ -52,9 +52,12 @@ public class AppRatingFileManager {
         int row = 0;
         while (scan.hasNextLine()) {
             String line = scan.nextLine();
-            String[] values = line.split(",");
-            table[row][0] = values[0];
-            table[row][1] = values[1];
+
+            if (line.contains(",")) {
+                String[] values = line.split(",");
+                table[row][0] = values[0];
+                table[row][1] = values[1];
+            }
             row++;
         }
 
@@ -78,16 +81,25 @@ public class AppRatingFileManager {
             //print table to file
             PrintWriter writer = new PrintWriter(file, "UTF-8");
             for (int i = 0; i < table.length; i++) {
-                writer.println(table[i]);
+                if (!(table[i][0] == null)) {
+                    writer.println(table[i][0] + "," + table[i][1]);
+                }
             }
             writer.close();
         } else {
             //append a new line to file
             FileWriter fileWriter = new FileWriter(file, true);
-            fileWriter.append(foregroundTime + "," + pkgName);
-            fileWriter.append("\n");
-            fileWriter.close();
+            String appendStr = foregroundTime + "," + pkgName;
+            if (!appendStr.equals("null")) {
+                Log.d(TAG, foregroundTime + "," + pkgName);
+                fileWriter.append(foregroundTime + "," + pkgName);
+                fileWriter.append("\n");
+                fileWriter.close();
+            }
+
         }
+
+
     }
 
     /**
@@ -103,9 +115,11 @@ public class AppRatingFileManager {
         ArrayList<AppTimeStamp> list = new ArrayList<>();
         while (scan.hasNextLine()) {
             String line = scan.nextLine();
-            String[] values = line.split(",");
-            AppTimeStamp app = new AppTimeStamp(values[0], values[1]);
-            list.add(app);
+            if (line.contains(",")) {
+                String[] values = line.split(",");
+                AppTimeStamp app = new AppTimeStamp(values[0], values[1]);
+                list.add(app);
+            }
         }
         return list;
     }
