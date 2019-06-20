@@ -1,5 +1,6 @@
 package com.example.tvusagerecord;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -66,11 +68,21 @@ public class WeeklyUsageBarGraph extends AppCompatActivity {
         barChart.setTouchEnabled(true);
         barChart.setDragEnabled(true);
         barChart.setScaleEnabled(true);
+        barChart.setDescription("");
+        theData.setBarWidth(0.9f); // set custom bar width
+        if (total.size() == 1) {
+            barChart.setFitBars(false); // make the x-axis fit exactly all bars
+        } else {
+            barChart.setFitBars(true); // make the x-axis fit exactly all bars
+        }
+        barChart.setDrawValueAboveBar(true);
         barChart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(WeeklyUsageBarGraph.this, "Cumulative Week Stats", Toast.LENGTH_SHORT).show();
             }
         });
+        barChart.invalidate();
+        barChart.setFocusable(true);
     }
 }
