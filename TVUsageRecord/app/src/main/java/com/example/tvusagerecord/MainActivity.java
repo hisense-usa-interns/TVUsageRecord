@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.tvusagerecord.io.AppRatingFileManager;
 import com.example.tvusagerecord.io.AppTimeStampFileManager;
 import com.example.tvusagerecord.io.DurationFileManager;
 import com.example.tvusagerecord.object.AppTimeStamp;
@@ -66,6 +67,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, AppUsageHistoryActivity.class));
             }
         });
+
+//        AppRatingFileManager appRatingFileManager = new AppRatingFileManager();
+//        try {
+//            appRatingFileManager.constructFile("rating.csv");
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
     }
 
 

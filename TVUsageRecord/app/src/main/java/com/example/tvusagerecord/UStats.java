@@ -19,39 +19,6 @@ public class UStats {
     public static final String TAG = UsageStats.class.getSimpleName();
 
     /**
-     * get pkg names of usage stats within the time range based on parameters
-     * @param context
-     * @param weekNum number of weeks past
-     * @param dayNum number days before the week
-     */
-    public void getStatsForPeriod(Context context, int weekNum, int dayNum) {
-        UsageStatsManager usm = (UsageStatsManager) context.getSystemService(Context.USAGE_STATS_SERVICE);
-        int interval = UsageStatsManager.INTERVAL_YEARLY;
-        //get current time as the endtime
-        Calendar calendar = Calendar.getInstance();
-        long endTime = calendar.getTimeInMillis();
-        //set start time based on input
-        calendar.add(Calendar.WEEK_OF_MONTH, -1 * weekNum);
-        calendar.add(Calendar.DAY_OF_WEEK, -1 * dayNum);
-
-        long startTime = calendar.getTimeInMillis();
-
-        Log.d(TAG, "Range start: " + dateFormat.format(startTime));
-        Log.d(TAG, "Range end: " + dateFormat.format(endTime));
-
-        UsageEvents uEvents = usm.queryEvents(startTime, endTime);
-        while (uEvents.hasNextEvent()) {
-            UsageEvents.Event event = new UsageEvents.Event();
-            uEvents.getNextEvent(event);
-
-            if (event != null) {
-                Log.d(TAG, "Event: " + event.getPackageName() + "\t" + event.getTimeStamp());
-            }
-        }
-    }
-
-
-    /**
      * Retrieve the list of usage stats in the past period of time given by parameters
      * @param context
      * @param weekNum
