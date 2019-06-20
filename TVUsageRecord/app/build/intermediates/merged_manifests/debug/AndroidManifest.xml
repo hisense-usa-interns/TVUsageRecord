@@ -24,6 +24,7 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
+        <activity android:name="com.example.tvusagerecord.WeeklyUsageBarGraph" />
         <activity android:name="com.example.tvusagerecord.WeekStats" />
         <activity android:name="com.example.tvusagerecord.WeeklyUsageStats" />
         <activity android:name="com.example.tvusagerecord.AppUsageHistoryActivity" />

@@ -64,5 +64,15 @@ public class WeeklyUsageStats extends AppCompatActivity {
             }
         });
 
+
+        //cumulative usage button
+        Button barBt = (Button) findViewById(R.id.barBt);
+        barBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(WeeklyUsageStats.this, "Cumulative Weekly Usage", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(WeeklyUsageStats.this, WeeklyUsageBarGraph.class));
+            }
+        });
     }
 }

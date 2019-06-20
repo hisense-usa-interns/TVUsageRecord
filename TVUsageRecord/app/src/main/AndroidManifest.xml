@@ -18,6 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".WeeklyUsageBarGraph"></activity>
         <activity android:name=".WeekStats" />
         <activity android:name=".WeeklyUsageStats" />
         <activity android:name=".AppUsageHistoryActivity" />
@@ -39,8 +40,8 @@
         <service
             android:name=".MainService"
             android:enabled="true"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:exported="true" />
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <activity android:name=".MainActivity">
             <intent-filter>
