@@ -65,7 +65,7 @@ public class WeeklyUsageStats extends AppCompatActivity {
         });
 
 
-        //cumulative usage button
+        //cumulative weekly usage button
         Button barBt = (Button) findViewById(R.id.barBt);
         barBt.setOnClickListener(new View.OnClickListener() {
             @Override
