@@ -59,9 +59,24 @@ public class UsbActivity extends AppCompatActivity {
         //first get accurate path of media_rw
         File external = Environment.getExternalStorageDirectory();
         Log.d(TAG, "External storage absolute path: " + external.getAbsolutePath());
-        File mnt = external.getParentFile();
-        Log.d(TAG, "mnt absolute path: " + mnt.getAbsolutePath());
+        File zero = external.getParentFile();
+        Log.d(TAG, "zero absolute path: " + zero.getAbsolutePath());
+        File emulated = zero.getParentFile();
+        Log.d(TAG, "emulated absolute path: " + emulated.getAbsolutePath());
+        File storage = emulated.getParentFile();
+        Log.d(TAG, "storage absolute path: " + storage.getAbsolutePath());
+        File parent = storage.getParentFile();
+        Log.d(TAG, "the home path: " + parent.getAbsolutePath());
+        File[] homeFiles = parent.listFiles();
+        File mnt = null;
+        for (int i = 0; i < homeFiles.length; i++) {
+            if (homeFiles[i].getName().equals("mnt")) {
+                mnt = homeFiles[i];
+            }
+        }
         File[] mntFiles = mnt.listFiles();
+        
+
         File media_rw = null;
         for (int i = 0; i < mntFiles.length; i++) {
             if (mntFiles[i].isDirectory() && mntFiles[i].getName().contains("media")) {
