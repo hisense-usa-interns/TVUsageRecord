@@ -264,14 +264,14 @@ public class MainService extends JobIntentService {
         alarms.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 10 * 1000, alarmIntent);
         Log.e(TAG, "Start the service alarm set");
 
-        /**
+
         try {
             Thread.sleep(10 * 1000);
         } catch (InterruptedException e) {
 
         }
-         */
-        onHandleWork(intent);
+
+        //onHandleWork(intent);
     }
 
 
