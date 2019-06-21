@@ -68,11 +68,19 @@ public class UsbActivity extends AppCompatActivity {
 
         File[] storageFiles = storage.listFiles();
         File usb = null;
+        int count = 0;
         for (int i = 0; i < storageFiles.length; i++) {
+
+            Log.d(TAG, "File names: " + storageFiles[i].getName());
+
             if (storageFiles[i].getName().contains("-")) {
                 usb = storageFiles[i];
             }
+            count = 1;
         }
+        Log.d(TAG, "Number of folders: " + count);
+
+
         Log.d(TAG, "Usb absolute path: " + usb.getAbsolutePath());
         Log.d(TAG, "Usb name: " + usb.getName());
         //save files into usb folder
