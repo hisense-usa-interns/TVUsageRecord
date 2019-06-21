@@ -59,30 +59,18 @@ public class UsbActivity extends AppCompatActivity {
         //first get accurate path of media_rw
         File external = Environment.getExternalStorageDirectory();
         Log.d(TAG, "External storage absolute path: " + external.getAbsolutePath());
-        File zero = external.getParentFile();
-        Log.d(TAG, "zero absolute path: " + zero.getAbsolutePath());
-        File emulated = zero.getParentFile();
-        Log.d(TAG, "emulated absolute path: " + emulated.getAbsolutePath());
-        File storage = emulated.getParentFile();
-        Log.d(TAG, "storage absolute path: " + storage.getAbsolutePath());
 
-        File[] storageFiles = storage.listFiles();
+        File storage = new File("/storage");
+        Log.d(TAG, "Storage path: " + storage.getAbsolutePath());
+        File[] list = storage.listFiles();
         File usb = null;
-        int count = 0;
-        for (int i = 0; i < storageFiles.length; i++) {
-
-            Log.d(TAG, "File names: " + storageFiles[i].getName());
-
-            if (storageFiles[i].getName().contains("-")) {
-                usb = storageFiles[i];
+        for (int i = 0; i < list.length; i++) {
+            Log.d(TAG, "file name: " + list[i].getName());
+            if (list[i].getName().contains("-")) {
+                usb = list[i];
             }
-            count = 1;
         }
-        Log.d(TAG, "Number of folders: " + count);
 
-
-        Log.d(TAG, "Usb absolute path: " + usb.getAbsolutePath());
-        Log.d(TAG, "Usb name: " + usb.getName());
         //save files into usb folder
 
         File newTimeStamp = new File(usb, fileName);
