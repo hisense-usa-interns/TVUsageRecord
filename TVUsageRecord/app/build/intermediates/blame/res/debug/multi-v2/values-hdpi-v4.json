@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\Tusheet Goli\\StudioProjects\\TVUsageRecord\\TVUsageRecord\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-hdpi-v4\\values-hdpi-v4.xml",
+            "outputFile": "C:\\Users\\remus\\git\\TVUsageRecord\\TVUsageRecord\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-hdpi-v4\\values-hdpi-v4.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Tusheet Goli\\.gradle\\caches\\transforms-2\\files-2.1\\2fab687db4a8098c10ac511f5cfa0b76\\res\\values-hdpi-v4\\values-hdpi-v4.xml",
+                    "source": "C:\\Users\\remus\\.gradle\\caches\\transforms-2\\files-2.1\\23e232ab1bfe027ab4aac32c7c47569a\\res\\values-hdpi-v4\\values-hdpi-v4.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

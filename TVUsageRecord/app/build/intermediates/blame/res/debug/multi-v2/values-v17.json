@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\Tusheet Goli\\StudioProjects\\TVUsageRecord\\TVUsageRecord\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v17\\values-v17.xml",
+            "outputFile": "C:\\Users\\remus\\git\\TVUsageRecord\\TVUsageRecord\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v17\\values-v17.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Tusheet Goli\\.gradle\\caches\\transforms-2\\files-2.1\\2fab687db4a8098c10ac511f5cfa0b76\\res\\values-v17\\values-v17.xml",
+                    "source": "C:\\Users\\remus\\.gradle\\caches\\transforms-2\\files-2.1\\23e232ab1bfe027ab4aac32c7c47569a\\res\\values-v17\\values-v17.xml",
                     "from": {
                         "startLines": "2,5,9,12,15,18,22,25,29,33,37,40,43,46,50,53,57",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
