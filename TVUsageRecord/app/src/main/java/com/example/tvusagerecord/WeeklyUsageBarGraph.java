@@ -63,6 +63,7 @@ public class WeeklyUsageBarGraph extends AppCompatActivity {
 
         BarDataSet barDataSet = new BarDataSet(barEntries, "Weeks");
         BarData theData = new BarData(barDataSet);
+        barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         barChart.setData(theData);
 
         barChart.setTouchEnabled(true);
