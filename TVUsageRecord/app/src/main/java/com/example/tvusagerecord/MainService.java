@@ -256,20 +256,21 @@ public class MainService extends JobIntentService {
         }
         /** Above is for app rating file */
 
-        /**
+
         //use alarm to ensure the service is running every 10 seconds
         AlarmManager alarms = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
         Intent someIntent = new Intent(this, MainService.class); //intent to be launched
         PendingIntent alarmIntent = PendingIntent.getService(this, 1111, someIntent, PendingIntent.FLAG_CANCEL_CURRENT);
         alarms.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 10 * 1000, alarmIntent);
         Log.e(TAG, "Start the service alarm set");
-         */
 
+        /**
         try {
             Thread.sleep(10 * 1000);
         } catch (InterruptedException e) {
 
         }
+         */
         onHandleWork(intent);
     }
 
