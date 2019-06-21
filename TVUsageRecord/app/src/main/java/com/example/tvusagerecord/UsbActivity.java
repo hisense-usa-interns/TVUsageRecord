@@ -66,57 +66,33 @@ public class UsbActivity extends AppCompatActivity {
         File storage = emulated.getParentFile();
         Log.d(TAG, "storage absolute path: " + storage.getAbsolutePath());
 
-        File mnt = new File("/mnt");
-
-        /**
-        File parent = storage.getParentFile();
-        Log.d(TAG, "the home path: " + parent.getAbsolutePath());
-        File[] homeFiles = parent.listFiles();
-        File mnt = null;
-        for (int i = 0; i < homeFiles.length; i++) {
-            if (homeFiles[i].getName().equals("mnt")) {
-                mnt = homeFiles[i];
+        File[] storageFiles = storage.listFiles();
+        File usb = null;
+        for (int i = 0; i < storageFiles.length; i++) {
+            if (storageFiles[i].getName().contains("-")) {
+                usb = storageFiles[i];
             }
         }
-        */
+        Log.d(TAG, "Usb absolute path: " + usb.getAbsolutePath());
+        Log.d(TAG, "Usb name: " + usb.getName());
+        //save files into usb folder
 
-        File[] mntFiles = mnt.listFiles();
+        File newTimeStamp = new File(usb, fileName);
+        newTimeStamp = files[0];
+        Log.d(TAG, "File saved: " + newTimeStamp.getName());
 
+        File newDuration = new File(usb, durationFileName);
+        newDuration = files[1];
+        Log.d(TAG, "File saved: " + newDuration.getName());
 
-        File media_rw = null;
-        for (int i = 0; i < mntFiles.length; i++) {
-            if (mntFiles[i].isDirectory() && mntFiles[i].getName().contains("media")) {
-                media_rw = mntFiles[i];
-            }
-        }
-        Log.d(TAG, "media_rw absolute path: " + media_rw.getAbsolutePath());
-        Log.d(TAG, "media_rw name: " + media_rw.getName());
+        File newRating = new File(usb, ratingFileName);
+        newRating = files[2];
+        Log.d(TAG, "File saved: " + newRating.getName());
 
-        //get usb folder
-        File[] usbList = media_rw.listFiles();
-        if (usbList.length == 0) {
-            Log.e(TAG, "No USB Device Connected");
-        } else {
-            //only supports saving into the first usb folder
-            File usb = usbList[0];
-            //save files into usb folder
+        File newFirst = new File(usb, startFile);
+        newFirst = files[3];
+        Log.d(TAG, "File saved: " + newFirst.getName());
 
-            File newTimeStamp = new File(usb, fileName);
-            newTimeStamp = files[0];
-            Log.d(TAG, "File saved: " + newTimeStamp.getName());
-
-            File newDuration = new File(usb, durationFileName);
-            newDuration = files[1];
-            Log.d(TAG, "File saved: " + newDuration.getName());
-
-            File newRating = new File(usb, ratingFileName);
-            newRating = files[2];
-            Log.d(TAG, "File saved: " + newRating.getName());
-
-            File newFirst = new File(usb, startFile);
-            newFirst = files[3];
-            Log.d(TAG, "File saved: " + newFirst.getName());
-        }
 
     }
 
