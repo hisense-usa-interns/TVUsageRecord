@@ -76,18 +76,22 @@ public class UsbActivity extends AppCompatActivity {
         File newTimeStamp = new File(usb, fileName);
         newTimeStamp = files[0];
         Log.d(TAG, "File saved: " + newTimeStamp.getName());
+        Log.d(TAG, "File path: " + newTimeStamp.getAbsolutePath());
 
         File newDuration = new File(usb, durationFileName);
         newDuration = files[1];
         Log.d(TAG, "File saved: " + newDuration.getName());
+        Log.d(TAG, "File path: " + newDuration.getAbsolutePath());
 
         File newRating = new File(usb, ratingFileName);
         newRating = files[2];
         Log.d(TAG, "File saved: " + newRating.getName());
+        Log.d(TAG, "File path: " + newRating.getAbsolutePath());
 
         File newFirst = new File(usb, startFile);
         newFirst = files[3];
         Log.d(TAG, "File saved: " + newFirst.getName());
+        Log.d(TAG, "File path: " + newFirst.getAbsolutePath());
 
 
     }
