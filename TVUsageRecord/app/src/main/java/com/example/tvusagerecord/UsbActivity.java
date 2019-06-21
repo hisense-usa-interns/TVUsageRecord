@@ -65,6 +65,10 @@ public class UsbActivity extends AppCompatActivity {
         Log.d(TAG, "emulated absolute path: " + emulated.getAbsolutePath());
         File storage = emulated.getParentFile();
         Log.d(TAG, "storage absolute path: " + storage.getAbsolutePath());
+
+        File mnt = new File("/mnt");
+
+        /**
         File parent = storage.getParentFile();
         Log.d(TAG, "the home path: " + parent.getAbsolutePath());
         File[] homeFiles = parent.listFiles();
@@ -74,8 +78,10 @@ public class UsbActivity extends AppCompatActivity {
                 mnt = homeFiles[i];
             }
         }
+        */
+
         File[] mntFiles = mnt.listFiles();
-        
+
 
         File media_rw = null;
         for (int i = 0; i < mntFiles.length; i++) {
