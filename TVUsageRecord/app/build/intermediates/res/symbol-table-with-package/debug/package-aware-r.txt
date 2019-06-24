@@ -1095,6 +1095,8 @@ id enterAlwaysCollapsed
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
+id export
+id exportF
 id fill
 id fill_horizontal
 id fill_vertical

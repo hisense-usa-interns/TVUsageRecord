@@ -70,11 +70,16 @@ public class AppRatingFileManager {
             if (pkgName.equals(table[i][1])) {
                 matched = true;
                 long originalTime = Long.parseLong(table[i][0]);
+
+                /**
                 if (foregroundTime >= originalTime) {
                     table[i][0] = Long.toString(foregroundTime);
                 } else {
                     table[i][0] = Long.toString(foregroundTime + originalTime);
                 }
+                 */
+
+                table[i][0] = Long.toString(originalTime + 30000);
             }
         }
         if (matched == true) {
@@ -89,10 +94,10 @@ public class AppRatingFileManager {
         } else {
             //append a new line to file
             FileWriter fileWriter = new FileWriter(file, true);
-            String appendStr = foregroundTime + "," + pkgName;
+            String appendStr = 30000 + "," + pkgName;
             if (!appendStr.equals("null")) {
-                Log.d(TAG, foregroundTime + "," + pkgName);
-                fileWriter.append(foregroundTime + "," + pkgName);
+                Log.d(TAG, 30000 + "," + pkgName);
+                fileWriter.append(30000 + "," + pkgName);
                 fileWriter.append("\n");
                 fileWriter.close();
             }
