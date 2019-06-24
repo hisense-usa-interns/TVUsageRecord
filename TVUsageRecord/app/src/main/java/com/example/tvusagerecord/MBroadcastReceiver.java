@@ -73,7 +73,8 @@ public class MBroadcastReceiver extends BroadcastReceiver {
             }
 
             //context.startService(serviceIntent);
-            MainService.enqueueWork(context, new Intent());
+            Intent mService = new Intent(context, MainService.class);
+            MainService.enqueueWork(context, mService);
         }
     }
 }

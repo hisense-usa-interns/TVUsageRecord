@@ -1055,6 +1055,8 @@ id always
 id apps_rating_btn
 id async
 id auto
+id barBt
+id bargraph
 id barrier
 id beginning
 id blocking
@@ -1281,7 +1283,9 @@ layout abc_tooltip
 layout activity_app_usage_history
 layout activity_apps_rating
 layout activity_main
+layout activity_usb
 layout activity_week_stats
+layout activity_weekly_usage_bar_graph
 layout activity_weekly_usage_stats
 layout content_apps_rating
 layout design_bottom_navigation_item
@@ -1356,6 +1360,7 @@ string appbar_scrolling_view_behavior
 string bottom_sheet_behavior
 string character_counter_content_description
 string character_counter_pattern
+string cumulative_usage
 string enter_week_number
 string fab_transformation_scrim_behavior
 string fab_transformation_sheet_behavior
@@ -1948,3 +1953,4 @@ styleable Toolbar android_gravity android_minHeight buttonGravity collapseConten
 styleable View android_theme android_focusable paddingEnd paddingStart theme
 styleable ViewBackgroundHelper android_background backgroundTint backgroundTintMode
 styleable ViewStubCompat android_id android_layout android_inflatedId
+xml device_filter

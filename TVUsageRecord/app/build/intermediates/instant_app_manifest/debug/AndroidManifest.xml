@@ -8,12 +8,15 @@
     <uses-sdk
         android:minSdkVersion="24"
         android:targetSdkVersion="28" />
+
     <!-- android:sharedUserId="android.uid.system"> -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.REQUEST_COMPANION_RUN_IN_BACKGROUND" />
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />
+
+    <uses-feature android:name="android.hardware.usb.host" />
 
     <application
         android:allowBackup="true"
@@ -25,6 +28,7 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
+        <activity android:name="com.example.tvusagerecord.WeeklyUsageBarGraph" />
         <activity android:name="com.example.tvusagerecord.WeekStats" />
         <activity android:name="com.example.tvusagerecord.WeeklyUsageStats" />
         <activity android:name="com.example.tvusagerecord.AppUsageHistoryActivity" />
@@ -56,11 +60,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.example.tvusagerecord.UsbActivity" >
+            <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+            </intent-filter>
 
-        <provider
-            android:name="com.android.tools.ir.server.InstantRunContentProvider"
-            android:authorities="com.example.tvusagerecord.com.android.tools.ir.server.InstantRunContentProvider"
-            android:multiprocess="true" />
+            <meta-data
+                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+                android:resource="@xml/device_filter" />
+        </activity>
     </application>
 
 </manifest>

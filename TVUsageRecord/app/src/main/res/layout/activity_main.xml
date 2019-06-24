@@ -51,4 +51,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/apps_rating_btn"
         app:layout_constraintVertical_bias="0.352" />
+
+    <Button
+        android:id="@+id/exportF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="257dp"
+        android:layout_marginTop="85dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginBottom="32dp"
+        android:text="Export Files"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewHistory" />
 </android.support.constraint.ConstraintLayout>

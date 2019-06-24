@@ -1,10 +1,20 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\Tusheet Goli\\StudioProjects\\TVUsageRecord\\TVUsageRecord\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-land\\values-land.xml",
+            "outputFile": "C:\\Users\\remus\\git\\TVUsageRecord\\TVUsageRecord\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-land\\values-land.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Tusheet Goli\\.gradle\\caches\\transforms-2\\files-2.1\\837bc6b02a8527d2457a46ea03778a09\\res\\values-land\\values-land.xml",
+                    "source": "C:\\Users\\remus\\.gradle\\caches\\transforms-2\\files-2.1\\23e232ab1bfe027ab4aac32c7c47569a\\res\\values-land\\values-land.xml",
+                    "from": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,125,196",
+                        "endColumns": "69,70,67",
+                        "endOffsets": "120,191,259"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\remus\\.gradle\\caches\\transforms-2\\files-2.1\\4371ddf81ce2c0843badd481970fcf34\\res\\values-land\\values-land.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -20,16 +30,6 @@
                         "endLines": "8",
                         "endColumns": "10",
                         "endOffsets": "431"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\Tusheet Goli\\.gradle\\caches\\transforms-2\\files-2.1\\2fab687db4a8098c10ac511f5cfa0b76\\res\\values-land\\values-land.xml",
-                    "from": {
-                        "startLines": "2,3,4",
-                        "startColumns": "4,4,4",
-                        "startOffsets": "55,125,196",
-                        "endColumns": "69,70,67",
-                        "endOffsets": "120,191,259"
                     }
                 }
             ]

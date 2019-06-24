@@ -50,6 +50,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //button for exporting files to usb folder
+        Button export = (Button) findViewById(R.id.exportF);
+        export.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, UsbActivity.class));
+            }
+        });
+
         //button for loading page of apps top-down list
         Button appsRating = (Button) findViewById(R.id.apps_rating_btn);
         appsRating.setOnClickListener(new View.OnClickListener() {
