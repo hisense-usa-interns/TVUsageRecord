@@ -47,6 +47,7 @@ public class MainService extends JobIntentService {
     long lastUpdateTime = 0;
     /** last update time for app rating file */
     long lastUpdateRating = 0;
+
     /**
      * Unique job ID for this service.
      */
@@ -268,14 +269,15 @@ public class MainService extends JobIntentService {
 
         try {
             Thread.sleep(10 * 1000);
+
         } catch (InterruptedException e) {
 
         }
 
-        Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
-        int threadNum = threadSet.size();
-        Log.d(TAG, "Current running threads number: " + threadNum);
-        onHandleWork(intent);
+
+
+        //onHandleWork(intent);
+        enqueueWork(context, intent);
     }
 
 
