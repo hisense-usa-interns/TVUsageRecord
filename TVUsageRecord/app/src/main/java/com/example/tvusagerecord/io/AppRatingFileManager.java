@@ -78,8 +78,9 @@ public class AppRatingFileManager {
                     table[i][0] = Long.toString(foregroundTime + originalTime);
                 }
                  */
-
-                table[i][0] = Long.toString(originalTime + 30000);
+                if (u.getLastTimeStamp() + 60000 >= System.currentTimeMillis()) {
+                    table[i][0] = Long.toString(originalTime + 30000);
+                }
             }
         }
         if (matched == true) {
@@ -94,10 +95,10 @@ public class AppRatingFileManager {
         } else {
             //append a new line to file
             FileWriter fileWriter = new FileWriter(file, true);
-            String appendStr = 30000 + "," + pkgName;
+            String appendStr = foregroundTime + "," + pkgName;
             if (!appendStr.equals("null")) {
-                Log.d(TAG, 30000 + "," + pkgName);
-                fileWriter.append(30000 + "," + pkgName);
+                Log.d(TAG, foregroundTime + "," + pkgName);
+                fileWriter.append(foregroundTime + "," + pkgName);
                 fileWriter.append("\n");
                 fileWriter.close();
             }

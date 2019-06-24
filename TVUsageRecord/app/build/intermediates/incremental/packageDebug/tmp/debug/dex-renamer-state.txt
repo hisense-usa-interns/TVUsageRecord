@@ -1,4 +1,4 @@
-#Mon Jun 24 14:24:56 EDT 2019
+#Mon Jun 24 17:43:53 EDT 2019
 base.0=C\:\\Users\\remus\\git\\TVUsageRecord\\TVUsageRecord\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\out
 path.1=classes.dex
 renamed.1=classes2.dex

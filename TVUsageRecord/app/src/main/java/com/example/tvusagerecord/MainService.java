@@ -48,7 +48,8 @@ public class MainService extends JobIntentService {
     /** last update time for app rating file */
     long lastUpdateRating = 0;
     /** last pkg name added to apps rating count */
-    String lastPkgName = "";
+    UsageStats lastApp;
+    String lastPkgName;
 
     /**
      * Unique job ID for this service.
@@ -252,7 +253,7 @@ public class MainService extends JobIntentService {
         if (current2 - lastUpdateRating > 30 * 1000) {
             List<UsageStats> apps = usm.queryUsageStats(UsageStatsManager.INTERVAL_BEST, current - 30 * 1000, current);
 
-            /**
+
             for (UsageStats u : apps) {
                 try {
                     manager.updateApp(u, ratingFileName);
@@ -260,18 +261,28 @@ public class MainService extends JobIntentService {
                     Log.e(TAG, "IO Exception when updating app rating file");
                 }
             }
-             */
 
-            if (apps.get(0).getPackageName().equals(lastPkgName)) {
 
+            /**
+            if (!apps.isEmpty()) {
                 try {
                     manager.updateApp(apps.get(0), ratingFileName);
                 } catch (IOException e) {
                     Log.e(TAG, "IO Exception when updating app rating file");
                 }
-            }
 
-            lastPkgName = apps.get(0).getPackageName();
+                lastApp = apps.get(0);
+                lastPkgName = apps.get(0).getPackageName();
+            } else {
+                if (lastApp != null) {
+                    try {
+                        manager.updateApp(lastApp, ratingFileName);
+                    } catch (IOException e) {
+                        Log.e(TAG, "IO Exception when updating app rating file");
+                    }
+                }
+            }
+             */
 
             lastUpdateRating = current2;
         }
