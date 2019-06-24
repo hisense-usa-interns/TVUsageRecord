@@ -7,6 +7,7 @@ import android.os.IBinder;
 import com.example.tvusagerecord.manager.Manager;
 
 import android.support.v4.app.JobIntentService;
+import java.util.Set;
 import android.util.Log;
 import android.app.AlarmManager;
 import android.content.Context;
@@ -261,16 +262,19 @@ public class MainService extends JobIntentService {
         AlarmManager alarms = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
         Intent someIntent = new Intent(this, MainService.class); //intent to be launched
         PendingIntent alarmIntent = PendingIntent.getService(this, 1111, someIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-        alarms.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 10 * 1000, alarmIntent);
+        alarms.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() +  6 * 60 * 60 * 1000, alarmIntent);
         Log.e(TAG, "Start the service alarm set");
 
-/**
+
         try {
             Thread.sleep(10 * 1000);
         } catch (InterruptedException e) {
 
         }
-*/
+
+        Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
+        int threadNum = threadSet.size();
+        Log.d(TAG, "Current running threads number: " + threadNum);
         onHandleWork(intent);
     }
 
