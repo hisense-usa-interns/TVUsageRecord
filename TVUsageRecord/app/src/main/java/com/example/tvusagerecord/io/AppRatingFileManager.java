@@ -70,10 +70,16 @@ public class AppRatingFileManager {
             if (pkgName.equals(table[i][1])) {
                 matched = true;
                 long originalTime = Long.parseLong(table[i][0]);
+
+                /**
                 if (foregroundTime >= originalTime) {
                     table[i][0] = Long.toString(foregroundTime);
                 } else {
                     table[i][0] = Long.toString(foregroundTime + originalTime);
+                }
+                 */
+                if (u.getLastTimeStamp() + 60000 >= System.currentTimeMillis()) {
+                    table[i][0] = Long.toString(originalTime + 30000);
                 }
             }
         }

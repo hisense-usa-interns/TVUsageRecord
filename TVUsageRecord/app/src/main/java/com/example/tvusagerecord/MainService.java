@@ -47,6 +47,9 @@ public class MainService extends JobIntentService {
     long lastUpdateTime = 0;
     /** last update time for app rating file */
     long lastUpdateRating = 0;
+    /** last pkg name added to apps rating count */
+    UsageStats lastApp;
+    String lastPkgName;
 
     /**
      * Unique job ID for this service.
@@ -132,7 +135,8 @@ public class MainService extends JobIntentService {
             }
             app = applist.get(0);
         } catch (IndexOutOfBoundsException e) {
-            onHandleWork(intent);
+            //onHandleWork(intent);
+            enqueueWork(context, intent);
         }
         //get the launch time for this app
         long launchTime = app.getLastTimeStamp();
@@ -147,7 +151,8 @@ public class MainService extends JobIntentService {
         } catch (FileNotFoundException e) {
             Log.e(TAG, "app timestamp file not existed");
         } catch (IndexOutOfBoundsException e) {
-            onHandleWork(intent);
+            //onHandleWork(intent);
+            enqueueWork(context, intent);
         }
 
         Log.d(TAG, "package name is: " + pkgName);
@@ -246,7 +251,9 @@ public class MainService extends JobIntentService {
         /** The following is for app rating file */
         long current2 = System.currentTimeMillis();
         if (current2 - lastUpdateRating > 30 * 1000) {
-            List<UsageStats> apps = usm.queryUsageStats(UsageStatsManager.INTERVAL_BEST, current - 60 * 1000, current);
+            List<UsageStats> apps = usm.queryUsageStats(UsageStatsManager.INTERVAL_BEST, current - 30 * 1000, current);
+
+
             for (UsageStats u : apps) {
                 try {
                     manager.updateApp(u, ratingFileName);
@@ -254,6 +261,29 @@ public class MainService extends JobIntentService {
                     Log.e(TAG, "IO Exception when updating app rating file");
                 }
             }
+
+
+            /**
+            if (!apps.isEmpty()) {
+                try {
+                    manager.updateApp(apps.get(0), ratingFileName);
+                } catch (IOException e) {
+                    Log.e(TAG, "IO Exception when updating app rating file");
+                }
+
+                lastApp = apps.get(0);
+                lastPkgName = apps.get(0).getPackageName();
+            } else {
+                if (lastApp != null) {
+                    try {
+                        manager.updateApp(lastApp, ratingFileName);
+                    } catch (IOException e) {
+                        Log.e(TAG, "IO Exception when updating app rating file");
+                    }
+                }
+            }
+             */
+
             lastUpdateRating = current2;
         }
         /** Above is for app rating file */
