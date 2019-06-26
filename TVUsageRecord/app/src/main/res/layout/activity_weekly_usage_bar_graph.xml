@@ -7,9 +7,11 @@
     tools:context=".WeeklyUsageBarGraph">
 
     <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/bargraph"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:id="@+id/bargraph"
-        tools:ignore="MissingConstraints"></com.github.mikephil.charting.charts.BarChart>
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="70dp"></com.github.mikephil.charting.charts.BarChart>
 
 </android.support.constraint.ConstraintLayout>
