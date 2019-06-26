@@ -142,6 +142,7 @@ public class UsbActivity extends AppCompatActivity {
         String csv2 = (Environment.getExternalStorageDirectory().getAbsolutePath() + "/app_timestamp.csv");
         String csv3 = (Environment.getExternalStorageDirectory().getAbsolutePath() + "/rating.csv");
         String csv4 = (Environment.getExternalStorageDirectory().getAbsolutePath() + "/first_time.csv");
+        String csv5 = (Environment.getExternalStorageDirectory().getAbsolutePath() + "/logcat.txt");
 
         Intent emailIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
         emailIntent.setType("text/plain");
@@ -149,7 +150,7 @@ public class UsbActivity extends AppCompatActivity {
         //email to information - can be changed as per need
         emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"htvusagerecord@gmail.com"});
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "TV Usage App Files");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "1) duration.csv \n 2) app_timestamp.csv \n 3) ratings.csv \n 4) first_time.csv");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "1) duration.csv \n 2) app_timestamp.csv \n 3) ratings.csv \n 4) first_time.csv \n 5) logcat.txt");
 
         if (Build.VERSION.SDK_INT >= 24) {
             try {
@@ -172,11 +173,15 @@ public class UsbActivity extends AppCompatActivity {
         File file4 = new File(csv4);
         Uri uri4 = Uri.fromFile(file4);
 
+        File file5 = new File(csv5);
+        Uri uri5 = Uri.fromFile(file5);
+
         ArrayList<Uri> uris = new ArrayList<Uri>();
         uris.add(uri1);
         uris.add(uri2);
         uris.add(uri3);
         uris.add(uri4);
+        uris.add(uri5);
 
         emailIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
         startActivityForResult(Intent.createChooser(emailIntent, "Sending multiple attachment"), 12345);

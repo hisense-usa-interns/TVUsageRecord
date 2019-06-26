@@ -3,6 +3,7 @@ package com.example.tvusagerecord;
 import android.app.Service;
 import android.content.Intent;
 import android.nfc.Tag;
+import android.os.Environment;
 import android.os.IBinder;
 import com.example.tvusagerecord.manager.Manager;
 
@@ -47,6 +48,8 @@ public class MainService extends JobIntentService {
     long lastUpdateTime = 0;
     /** last update time for app rating file */
     long lastUpdateRating = 0;
+    /** last update time for logcat file */
+    long lastUpdateTimeLogcat = 0;
     /** last pkg name added to apps rating count */
     UsageStats lastApp;
     String lastPkgName;
@@ -288,6 +291,54 @@ public class MainService extends JobIntentService {
         }
         /** Above is for app rating file */
 
+
+
+        /** The following is for logcat file */
+        long current3 = System.currentTimeMillis();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        if (current3 >= lastUpdateTimeLogcat + 1 * 60 * 1000) {
+            try
+            {
+                String currentTime = df.format(current3);
+                String requiredTime = currentTime.substring(5,15);
+
+                Process process = Runtime.getRuntime().exec("logcat -d");
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                StringBuilder log = new StringBuilder();
+                String line;
+                while((line = bufferedReader.readLine()) != null)
+                {
+                    if (line.contains(requiredTime) && !line.contains("app is:")) {
+                        log.append(line);
+                        log.append("\n");
+                    }
+                }
+
+                //Convert log to string
+                final String logString = new String(log.toString());
+
+                //Create txt file in SD Card
+                File file = new File(Environment.getExternalStorageDirectory(), "logcat.txt");
+
+                //To write logcat in text file
+                PrintWriter writer = new PrintWriter(file);
+
+                //Writing the string to file
+                writer.write(logString);
+                writer.flush();
+                writer.close();
+            }
+            catch(FileNotFoundException e)
+            {
+                e.printStackTrace();
+            }
+            catch(IOException e)
+            {
+                e.printStackTrace();
+            }
+            lastUpdateTimeLogcat = current3;
+        }
+        /** Above is for logcat file */
 
         //use alarm to ensure the service is running every 10 seconds
         AlarmManager alarms = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
