@@ -1,7 +1,5 @@
 package com.example.tvusagerecord;
 
-import android.app.usage.UsageStats;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,11 +7,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import java.io.PrintWriter;
-import com.example.tvusagerecord.io.AppTimeStampFileManager;
 import com.example.tvusagerecord.manager.Manager;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,8 +16,6 @@ import java.util.ArrayList;
 import java.io.FileNotFoundException;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Scanner;
-
 import android.util.Log;
 
 public class AppUsageHistoryActivity extends AppCompatActivity {
@@ -45,6 +38,7 @@ public class AppUsageHistoryActivity extends AppCompatActivity {
         } catch (FileNotFoundException e) {
             Log.e("AppUsageHistoryActivity", "time stamp file not found");
         }
+
         //order the display list in a reverse way
         for (int i = 0, j = lines.size() - 1; i < j; i++) {
             lines.add(i, lines.remove(j));
@@ -67,7 +61,6 @@ public class AppUsageHistoryActivity extends AppCompatActivity {
                 } catch (FileNotFoundException e) {
                     Log.e("AppUsageHistoryActivity", "time stamp file not found");
                 }
-
 
                 fileLines.sort(new Comparator<String>() {
                     @Override
@@ -95,6 +88,7 @@ public class AppUsageHistoryActivity extends AppCompatActivity {
                         }
                     }
                 });
+
                 try {
                     PrintWriter writer = new PrintWriter(fileName, "UTF-8");
                     for (int i = 0; i < fileLines.size(); i++) {
@@ -106,9 +100,7 @@ public class AppUsageHistoryActivity extends AppCompatActivity {
                 } catch (UnsupportedEncodingException e) {
                     Log.e(TAG, "unsupported encoding when writing to file");
                 }
-
             }
         });
-
     }
 }

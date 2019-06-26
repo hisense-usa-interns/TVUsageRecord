@@ -34,6 +34,7 @@ public class AppRatingFileManager {
         writer.close();
     }
 
+
     /**
      * update a usage stats to rating file
      * If no such line, store it in a new line
@@ -70,14 +71,6 @@ public class AppRatingFileManager {
             if (pkgName.equals(table[i][1])) {
                 matched = true;
                 long originalTime = Long.parseLong(table[i][0]);
-
-                /**
-                if (foregroundTime >= originalTime) {
-                    table[i][0] = Long.toString(foregroundTime);
-                } else {
-                    table[i][0] = Long.toString(foregroundTime + originalTime);
-                }
-                 */
                 if (u.getLastTimeStamp() + 60000 >= System.currentTimeMillis()) {
                     table[i][0] = Long.toString(originalTime + 30000);
                 }
@@ -102,11 +95,9 @@ public class AppRatingFileManager {
                 fileWriter.append("\n");
                 fileWriter.close();
             }
-
         }
-
-
     }
+
 
     /**
      * get a list of time stamp and apps from the file
@@ -129,6 +120,7 @@ public class AppRatingFileManager {
         }
         return list;
     }
+
 
     /**
      * sort a list of app time stamps and convert the list to string list
@@ -156,6 +148,4 @@ public class AppRatingFileManager {
         }
         return strList;
     }
-
-
 }

@@ -6,7 +6,6 @@ import android.util.Log;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -33,14 +32,15 @@ public class StartTimeRecorder {
         return false;
     }
 
+
     /**
      * store the first start time when the file is empty
      */
     public void storeFirstTimeToFile() throws IOException {
-        //check if the first time stamp already exists
-        //if exist, set boolean to yes
+        //check if the first time stamp already exists - if exist, set boolean to yes
         boolean firstTimeSet = false;
         File file = new File(Environment.getExternalStorageDirectory(), startFile);
+
         if (!file.exists()) {
             PrintWriter w = new PrintWriter(file, "UTF-8");
             w.print(dateFormat.format(System.currentTimeMillis()));
@@ -49,8 +49,6 @@ public class StartTimeRecorder {
         }
 
         FileInputStream stream = new FileInputStream(file);
-
-
 
         Scanner scan = new Scanner(stream, "UTF-8");
         if (scan.hasNextLine()) {
@@ -65,6 +63,7 @@ public class StartTimeRecorder {
         }
         Log.d(TAG, "firstTimeSet: " + firstTimeSet);
     }
+
 
     /**
      * get the first start time in string from file if it exists, if not, return null
@@ -82,6 +81,7 @@ public class StartTimeRecorder {
         return null;
     }
 
+
     /**
      * return long type of the first time stored in the file
      * @return
@@ -98,17 +98,4 @@ public class StartTimeRecorder {
         }
         return 0;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

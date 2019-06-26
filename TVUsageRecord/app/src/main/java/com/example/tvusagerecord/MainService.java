@@ -1,14 +1,10 @@
 package com.example.tvusagerecord;
 
-import android.app.Service;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Environment;
-import android.os.IBinder;
 import com.example.tvusagerecord.manager.Manager;
 
 import android.support.v4.app.JobIntentService;
-import java.util.Set;
 import android.util.Log;
 import android.app.AlarmManager;
 import android.content.Context;
@@ -59,9 +55,6 @@ public class MainService extends JobIntentService {
      */
     static final int JOB_ID = 1000;
 
-
-
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -90,7 +83,7 @@ public class MainService extends JobIntentService {
         try {
             manager.clearTimeStampFile(fileName);
         } catch (IOException e) {
-            
+            //nothing
         }
 
         //store the first boot time to file
@@ -104,6 +97,7 @@ public class MainService extends JobIntentService {
                 Log.e(TAG, "start time file io exception");
             }
         }
+
         //get the first boot time from file
         long firstTime = 0;
         try {
@@ -138,9 +132,9 @@ public class MainService extends JobIntentService {
             }
             app = applist.get(0);
         } catch (IndexOutOfBoundsException e) {
-            //onHandleWork(intent);
             enqueueWork(context, intent);
         }
+
         //get the launch time for this app
         long launchTime = app.getLastTimeStamp();
         String pkgName = app.getPackageName();
@@ -154,7 +148,6 @@ public class MainService extends JobIntentService {
         } catch (FileNotFoundException e) {
             Log.e(TAG, "app timestamp file not existed");
         } catch (IndexOutOfBoundsException e) {
-            //onHandleWork(intent);
             enqueueWork(context, intent);
         }
 
@@ -195,17 +188,7 @@ public class MainService extends JobIntentService {
         }
 
 
-        // The following code is for storing durations into file
-
-
-        /**
-        try {
-            Thread.sleep(10 * 1000);
-        } catch (InterruptedException e) {
-            Log.e(TAG, "interruption exception when sleeping the thread");
-        }
-         */
-
+        /** The following is for duration rating file */
         //get the hour from current time
         String currentStr = dateFormat.format(current);
 
@@ -248,8 +231,9 @@ public class MainService extends JobIntentService {
             //update the lastUpdateTime variable
             lastUpdateTime = current;
             Log.d(TAG, "updated duration.csv");
-
         }
+        /** Above is for duration file */
+
 
         /** The following is for app rating file */
         long current2 = System.currentTimeMillis();
@@ -264,41 +248,16 @@ public class MainService extends JobIntentService {
                     Log.e(TAG, "IO Exception when updating app rating file");
                 }
             }
-
-
-            /**
-            if (!apps.isEmpty()) {
-                try {
-                    manager.updateApp(apps.get(0), ratingFileName);
-                } catch (IOException e) {
-                    Log.e(TAG, "IO Exception when updating app rating file");
-                }
-
-                lastApp = apps.get(0);
-                lastPkgName = apps.get(0).getPackageName();
-            } else {
-                if (lastApp != null) {
-                    try {
-                        manager.updateApp(lastApp, ratingFileName);
-                    } catch (IOException e) {
-                        Log.e(TAG, "IO Exception when updating app rating file");
-                    }
-                }
-            }
-             */
-
             lastUpdateRating = current2;
         }
         /** Above is for app rating file */
-
 
 
         /** The following is for logcat file */
         long current3 = System.currentTimeMillis();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if (current3 >= lastUpdateTimeLogcat + 1 * 60 * 1000) {
-            try
-            {
+            try {
                 String currentTime = df.format(current3);
                 String requiredTime = currentTime.substring(5,15);
 
@@ -306,8 +265,7 @@ public class MainService extends JobIntentService {
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
                 StringBuilder log = new StringBuilder();
                 String line;
-                while((line = bufferedReader.readLine()) != null)
-                {
+                while((line = bufferedReader.readLine()) != null) {
                     if (line.contains(requiredTime) && !line.contains("app is:")) {
                         log.append(line);
                         log.append("\n");
@@ -327,39 +285,29 @@ public class MainService extends JobIntentService {
                 writer.write(logString);
                 writer.flush();
                 writer.close();
-            }
-            catch(FileNotFoundException e)
-            {
+            } catch(FileNotFoundException e) {
                 e.printStackTrace();
-            }
-            catch(IOException e)
-            {
+            } catch(IOException e) {
                 e.printStackTrace();
             }
             lastUpdateTimeLogcat = current3;
         }
         /** Above is for logcat file */
 
+
         //use alarm to ensure the service is running every 10 seconds
         AlarmManager alarms = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-        Intent someIntent = new Intent(this, MainService.class); //intent to be launched
+        Intent someIntent = new Intent(this, MainService.class);
         PendingIntent alarmIntent = PendingIntent.getService(this, 1111, someIntent, PendingIntent.FLAG_CANCEL_CURRENT);
         alarms.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() +  60 * 1000, alarmIntent);
         Log.e(TAG, "Start the service alarm set");
 
-
         try {
             Thread.sleep(10 * 1000);
-
         } catch (InterruptedException e) {
-
+            //nothing
         }
 
-
-
-        //onHandleWork(intent);
         enqueueWork(context, intent);
     }
-
-
 }

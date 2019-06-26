@@ -1,7 +1,5 @@
 package com.example.tvusagerecord.io;
 
-import com.example.tvusagerecord.object.Duration;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -42,8 +40,6 @@ public class DurationFileManager {
         File file = new File(Environment.getExternalStorageDirectory(), fileName);
         PrintWriter writer = new PrintWriter(file, "UTF-8");
         writer.println("Total,Morning Hours,Noon Hours,Afternoon Hours,Evening Hours,Night Hours");
-        //writer.println("Week 1," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0);
-        //writer.println("Week 2," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0);
         for (int i = 0; i < 100; i++) {
             writer.println(0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0);
         }
@@ -92,6 +88,7 @@ public class DurationFileManager {
         return table;
     }
 
+
     /**
      * get the values for week1 or 2, THE UNIT IS IN SECONDS
      * @param table 2-D Array of the whole table including titles
@@ -112,6 +109,7 @@ public class DurationFileManager {
         return row;
     }
 
+
     /**
      * help convert a row containing strings of seconds to float of hours
      * @param row
@@ -129,6 +127,7 @@ public class DurationFileManager {
         return hours;
     }
 
+
     /**
      * help to return the total usage in a given week
      * @param table
@@ -143,5 +142,4 @@ public class DurationFileManager {
         float totalFloat = Float.valueOf(total);
         return totalFloat;
     }
-
 }

@@ -8,7 +8,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
-import java.util.Collection;
 import android.app.usage.UsageStats;
 
 /**
@@ -22,6 +21,7 @@ public class Manager {
     AppTimeStampFileManager timestampManager;
     /** file manager of apps rating */
     AppRatingFileManager ratingManager;
+
 
     /**
      * manager constructor
@@ -83,6 +83,7 @@ public class Manager {
         return timestampManager.getLastItemName(fileName);
     }
 
+
     /**
      * get lines from file
      * @param fileName
@@ -92,6 +93,7 @@ public class Manager {
     public List<String> getAppsRunningHistory(String fileName) throws FileNotFoundException {
         return timestampManager.readFile(fileName);
     }
+
 
     /**
      * create a initial duration file
@@ -103,6 +105,7 @@ public class Manager {
         durationManager.constructFile(fileName);
     }
 
+
     /**
      * clear the time stamp file if lines reach 5000
      * @param fileName
@@ -111,6 +114,7 @@ public class Manager {
     public void clearTimeStampFile(String fileName) throws IOException {
         timestampManager.clearFile(fileName);
     }
+
 
     /**
      * create an empty app rating file
@@ -122,6 +126,7 @@ public class Manager {
         ratingManager.constructFile(fileName);
     }
 
+
     /**
      * update an new app to the app rating file
      * @param u
@@ -130,5 +135,4 @@ public class Manager {
     public void updateApp(UsageStats u, String fileName) throws IOException {
         ratingManager.updateAppRatingFile(fileName, u);
     }
-
 }

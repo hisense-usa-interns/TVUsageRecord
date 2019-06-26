@@ -69,6 +69,7 @@ public class UsbActivity extends AppCompatActivity {
         return files;
     }
 
+
     /**
      * save files to a USB
      * @param files
@@ -133,6 +134,7 @@ public class UsbActivity extends AppCompatActivity {
             Log.d(TAG, "No, file is not read only");
         }
     }
+
 
     /**
      * email the files to the target email id
