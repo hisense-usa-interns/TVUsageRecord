@@ -1,11 +1,14 @@
 package com.example.tvusagerecord;
 
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+
+import java.io.File;
 import java.io.PrintWriter;
 import com.example.tvusagerecord.manager.Manager;
 
@@ -53,54 +56,67 @@ public class AppUsageHistoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "sort button clicked");
+                sortCSV();
+            }
+        });
+    }
 
-                Manager manager = new Manager();
-                List<String> fileLines = new ArrayList<>();
+
+    /**
+     * sort app_timestamp.csv file
+     */
+    public void sortCSV() {
+
+        Manager manager = new Manager();
+        List<String> fileLines = new ArrayList<>();
+        try {
+            fileLines = manager.getAppsRunningHistory("app_timestamp.csv");
+        } catch (FileNotFoundException e) {
+            Log.e("AppUsageHistoryActivity", "time stamp file not found");
+        }
+
+        fileLines.sort(new Comparator<String>() {
+            @Override
+            public int compare(String l1, String l2) {
+
+                String[] l1Values = l1.split(",");
+                String l1TimeStr = l1Values[0];
+                String[] l2Values = l2.split(",");
+                String l2TimeStr = l2Values[0];
+                long time1 = 0;
+                long time2 = 0;
                 try {
-                    fileLines = manager.getAppsRunningHistory("app_timestamp.csv");
-                } catch (FileNotFoundException e) {
-                    Log.e("AppUsageHistoryActivity", "time stamp file not found");
+                    time1 = dateFormat.parse(l1TimeStr).getTime();
+                    time2 = dateFormat.parse(l2TimeStr).getTime();
+                } catch (ParseException e) {
+                    Log.e(TAG, "parse exception when parse time stamp string to long");
                 }
 
-                fileLines.sort(new Comparator<String>() {
-                    @Override
-                    public int compare(String l1, String l2) {
-
-                        String[] l1Values = l1.split(",");
-                        String l1TimeStr = l1Values[0];
-                        String[] l2Values = l2.split(",");
-                        String l2TimeStr = l2Values[0];
-                        long time1 = 0;
-                        long time2 = 0;
-                        try {
-                            time1 = dateFormat.parse(l1TimeStr).getTime();
-                            time2 = dateFormat.parse(l2TimeStr).getTime();
-                        } catch (ParseException e) {
-                            Log.e(TAG, "parse exception when parse time stamp string to long");
-                        }
-
-                        if (time1 > time2){
-                            return 1;
-                        } else if (time1 < time2) {
-                            return -1;
-                        } else {
-                            return 0;
-                        }
-                    }
-                });
-
-                try {
-                    PrintWriter writer = new PrintWriter(fileName, "UTF-8");
-                    for (int i = 0; i < fileLines.size(); i++) {
-                        writer.println(fileLines.get(i));
-                    }
-                    writer.close();
-                } catch (FileNotFoundException e) {
-                    Log.e(TAG, "file not found when writing to file");
-                } catch (UnsupportedEncodingException e) {
-                    Log.e(TAG, "unsupported encoding when writing to file");
+                if (time1 > time2){
+                    return -1;
+                } else if (time1 < time2) {
+                    return 1;
+                } else {
+                    return 0;
                 }
             }
         });
+
+        try {
+            File file = new File(Environment.getExternalStorageDirectory(), fileName);
+            PrintWriter writer = new PrintWriter(file, "UTF-8");
+            for (int i = 0; i < fileLines.size(); i++) {
+                if(i == (fileLines.size() - 1)) {
+                    writer.print(fileLines.get(i));
+                } else {
+                    writer.println(fileLines.get(i));
+                }
+            }
+            writer.close();
+        } catch (FileNotFoundException e) {
+            Log.e(TAG, "file not found when writing to file");
+        } catch (UnsupportedEncodingException e) {
+            Log.e(TAG, "unsupported encoding when writing to file");
+        }
     }
 }

@@ -46,7 +46,15 @@ public class UsbActivity extends AppCompatActivity {
         email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openFolder();
+                AppUsageHistoryActivity appUsageHistoryActivity = new AppUsageHistoryActivity();
+                try {
+                    appUsageHistoryActivity.sortCSV();
+                    Log.d(TAG, "sent sorted app_timestamp.csv file - sorting succeeded");
+                    openFolder();
+                } catch (Throwable e) {
+                    Log.d(TAG, "sent unsorted app_timestamp.csv file - sorting failed");
+                    openFolder();
+                }
             }
         });
     }
