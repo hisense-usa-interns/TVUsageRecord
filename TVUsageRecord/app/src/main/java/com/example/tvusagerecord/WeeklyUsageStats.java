@@ -1,6 +1,5 @@
 package com.example.tvusagerecord;
 
-import android.app.usage.UsageStats;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -63,7 +62,6 @@ public class WeeklyUsageStats extends AppCompatActivity {
                 startActivity(new Intent(WeeklyUsageStats.this, WeekStats.class));
             }
         });
-
 
         //cumulative weekly usage button
         Button barBt = (Button) findViewById(R.id.barBt);

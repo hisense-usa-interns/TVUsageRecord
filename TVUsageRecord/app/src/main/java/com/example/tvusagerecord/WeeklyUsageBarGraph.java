@@ -1,6 +1,5 @@
 package com.example.tvusagerecord;
 
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,7 +8,6 @@ import android.widget.Toast;
 
 import com.example.tvusagerecord.io.DurationFileManager;
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -64,18 +62,20 @@ public class WeeklyUsageBarGraph extends AppCompatActivity {
         BarDataSet barDataSet = new BarDataSet(barEntries, "Weeks");
         BarData theData = new BarData(barDataSet);
         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        barChart.setData(theData);
 
+        barChart.setData(theData);
         barChart.setTouchEnabled(true);
         barChart.setDragEnabled(true);
         barChart.setScaleEnabled(true);
         barChart.setDescription("");
-        theData.setBarWidth(0.9f); // set custom bar width
+        theData.setBarWidth(0.9f);
+
         if (total.size() == 1) {
-            barChart.setFitBars(false); // make the x-axis fit exactly all bars
+            barChart.setFitBars(false);
         } else {
-            barChart.setFitBars(true); // make the x-axis fit exactly all bars
+            barChart.setFitBars(true);
         }
+
         barChart.setDrawValueAboveBar(true);
         barChart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +83,7 @@ public class WeeklyUsageBarGraph extends AppCompatActivity {
                 Toast.makeText(WeeklyUsageBarGraph.this, "Cumulative Week Stats", Toast.LENGTH_SHORT).show();
             }
         });
+
         barChart.invalidate();
         barChart.setFocusable(true);
     }

@@ -2,7 +2,6 @@ package com.example.tvusagerecord;
 
 import java.text.SimpleDateFormat;
 import android.content.Context;
-import android.app.usage.UsageEvents;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import java.util.Calendar;
@@ -51,6 +50,7 @@ public class UStats {
                     + u.getTotalTimeInForeground()) ;
         }
     }
+
 
     /**
      * get list of string of given usage stats list

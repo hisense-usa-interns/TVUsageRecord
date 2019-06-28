@@ -1,35 +1,13 @@
 package com.example.tvusagerecord;
 
-import android.Manifest;
-import android.app.AppOpsManager;
 import android.content.pm.PackageManager;
-import android.os.Environment;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.app.usage.*;
 import android.content.Intent;
-import android.provider.Settings;
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
-
-import com.example.tvusagerecord.io.AppRatingFileManager;
-import com.example.tvusagerecord.io.AppTimeStampFileManager;
-import com.example.tvusagerecord.io.DurationFileManager;
-import com.example.tvusagerecord.object.AppTimeStamp;
-import com.example.tvusagerecord.object.Duration;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -76,15 +54,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, AppUsageHistoryActivity.class));
             }
         });
-
-//        AppRatingFileManager appRatingFileManager = new AppRatingFileManager();
-//        try {
-//            appRatingFileManager.constructFile("rating.csv");
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
     }
 
 

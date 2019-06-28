@@ -23,8 +23,6 @@ public class WeekStats extends AppCompatActivity {
 
     private String TAG = WeekStats.class.getSimpleName();
     private String durationFileName = "duration.csv";
-
-
     private float[] yData = new float[5];
     private String[] xData = {"Morning", "Noon", "Afternoon", "Evening", "Night"};
     float total;
@@ -39,6 +37,7 @@ public class WeekStats extends AppCompatActivity {
         this.weekNumber = weekNumber;
         Log.d(TAG, "weekNumber: " + this.weekNumber);
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +77,6 @@ public class WeekStats extends AppCompatActivity {
         pieChart.setTransparentCircleAlpha(0);
         pieChart.setCenterText("Week " + weekNumber + " Usage Stats");
         pieChart.setCenterTextSize(12);
-
         addDataSet();
 
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
@@ -110,6 +108,10 @@ public class WeekStats extends AppCompatActivity {
         });
     }
 
+
+    /**
+     * add the data set
+     */
     private void addDataSet() {
         Log.d(TAG, "addDataSet started");
         ArrayList<PieEntry> yEntrys = new ArrayList<>();
@@ -128,7 +130,7 @@ public class WeekStats extends AppCompatActivity {
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(12);
 
-        //add colors to dataset
+        //add colors to data set
         ArrayList<Integer> colors = new ArrayList<>();
         colors.add(Color.RED);
         colors.add(Color.GREEN);
