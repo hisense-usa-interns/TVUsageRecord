@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Environment;
 import com.example.tvusagerecord.manager.Manager;
 
+import android.os.IBinder;
 import android.support.v4.app.JobIntentService;
 import android.util.Log;
 import android.app.AlarmManager;
@@ -18,11 +19,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.List;
+import android.app.Service;
 
 /**
  * main service
  */
-public class MainService extends JobIntentService {
+public class MainService extends Service {
 
     /** class unique tag */
     private static final String TAG = "MainService";
@@ -63,14 +65,11 @@ public class MainService extends JobIntentService {
         recorder = new StartTimeRecorder();
     }
 
-
-    /**
-     * Convenience method for enqueuing work in to this service.
-     */
-    static void enqueueWork(Context context, Intent work) {
-        enqueueWork(context, MainService.class, JOB_ID, work);
+    @Override
+    public IBinder onBind(Intent intent) {
+        // TODO: Return the communication channel to the service.
+        throw new UnsupportedOperationException("Not yet implemented");
     }
-
 
     /**
      * Check for running apps and alarm 10 seconds to make sure the service keep running
@@ -78,7 +77,7 @@ public class MainService extends JobIntentService {
      * @return
      */
     @Override
-    public void onHandleWork(Intent intent) {
+    public int onStartCommand(Intent intent, int flag, int startId) {
 
         try {
             manager.clearTimeStampFile(fileName);
@@ -132,7 +131,7 @@ public class MainService extends JobIntentService {
             }
             app = applist.get(0);
         } catch (IndexOutOfBoundsException e) {
-            enqueueWork(context, intent);
+            return START_STICKY;
         }
 
         //get the launch time for this app
@@ -148,7 +147,7 @@ public class MainService extends JobIntentService {
         } catch (FileNotFoundException e) {
             Log.e(TAG, "app timestamp file not existed");
         } catch (IndexOutOfBoundsException e) {
-            enqueueWork(context, intent);
+            return START_STICKY;
         }
 
         Log.d(TAG, "package name is: " + pkgName);
@@ -308,6 +307,6 @@ public class MainService extends JobIntentService {
             //nothing
         }
 
-        enqueueWork(context, intent);
+        return START_STICKY;
     }
 }

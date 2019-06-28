@@ -71,10 +71,7 @@ public class MBroadcastReceiver extends BroadcastReceiver {
             } catch (UnsupportedEncodingException e) {
                 Log.e(TAG, "unsupported encoding when creating app rating file");
             }
-
-            //context.startService(serviceIntent);
-            Intent mService = new Intent(context, MainService.class);
-            MainService.enqueueWork(context, mService);
+            context.startService(serviceIntent);
         }
     }
 }
